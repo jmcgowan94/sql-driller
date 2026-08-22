@@ -1,0 +1,10 @@
+{
+  "id": "filtering_2",
+  "topic": "filtering",
+  "difficulty": 1,
+  "title": "Cheap in-stock products",
+  "prompt": "Return the name and price of all in-stock products that cost less than 20.",
+  "setup_sql": "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL, in_stock INTEGER); INSERT INTO products VALUES (1,'Widget','Hardware',9.99,1),(2,'Gadget','Hardware',19.99,0),(3,'Doohickey','Toys',4.50,1),(4,'Thingamajig','Toys',12.00,1),(5,'Contraption','Hardware',25.00,0),(6,'Gizmo','Electronics',49.99,1);",
+  "reference_sql": "SELECT name, price FROM products WHERE in_stock = 1 AND price < 20;",
+  "order_sensitive": false
+}

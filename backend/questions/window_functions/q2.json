@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_2",
+  "topic": "window_functions",
+  "difficulty": 1,
+  "title": "Rank within subject",
+  "prompt": "Return each student, subject, score, and their RANK() (as rnk) within their subject ordered by score descending.",
+  "setup_sql": "CREATE TABLE scores (id INTEGER PRIMARY KEY, student TEXT, subject TEXT, score INTEGER); INSERT INTO scores VALUES (1,'A','Math',90),(2,'B','Math',90),(3,'C','Math',80),(4,'D','Science',70),(5,'E','Science',95);",
+  "reference_sql": "SELECT student, subject, score, RANK() OVER (PARTITION BY subject ORDER BY score DESC) AS rnk FROM scores;",
+  "order_sensitive": false
+}

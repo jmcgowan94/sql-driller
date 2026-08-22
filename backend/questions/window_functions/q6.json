@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_6",
+  "topic": "window_functions",
+  "difficulty": 3,
+  "title": "Top rep per region",
+  "prompt": "Return the region, rep, and amount for the single top-selling rep (highest amount) in each region. Hint: use a window function in a subquery, then filter in the outer query (SQLite has no QUALIFY).",
+  "setup_sql": "CREATE TABLE sales9 (id INTEGER PRIMARY KEY, region TEXT, rep TEXT, amount REAL); INSERT INTO sales9 VALUES (1,'East','Alice',100.0),(2,'East','Bob',150.0),(3,'East','Carol',90.0),(4,'West','Dave',200.0),(5,'West','Eve',120.0);",
+  "reference_sql": "SELECT region, rep, amount FROM (SELECT region, rep, amount, RANK() OVER (PARTITION BY region ORDER BY amount DESC) AS rnk FROM sales9) WHERE rnk = 1;",
+  "order_sensitive": false
+}

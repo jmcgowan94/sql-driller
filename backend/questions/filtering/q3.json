@@ -1,0 +1,10 @@
+{
+  "id": "filtering_3",
+  "topic": "filtering",
+  "difficulty": 2,
+  "title": "Recent customers from select countries",
+  "prompt": "Return the names of customers from 'USA' or 'Spain' who signed up on or after 2023-01-01.",
+  "setup_sql": "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT, country TEXT, signup_date TEXT); INSERT INTO customers VALUES (1,'Maria','Spain','2023-01-15'),(2,'John','USA','2022-06-20'),(3,'Yuki','Japan','2023-08-02'),(4,'Liam','USA','2021-12-05'),(5,'Fatima','Egypt','2023-03-19'),(6,'Sara','Spain','2022-09-30'),(7,'Tom','USA','2023-11-11');",
+  "reference_sql": "SELECT name FROM customers WHERE country IN ('USA','Spain') AND signup_date >= '2023-01-01';",
+  "order_sensitive": false
+}

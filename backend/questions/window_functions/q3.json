@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_3",
+  "topic": "window_functions",
+  "difficulty": 2,
+  "title": "Running total of deposits",
+  "prompt": "Return each deposit_date, amount, and a running_total column that is the cumulative sum of amount ordered by deposit_date.",
+  "setup_sql": "CREATE TABLE deposits (id INTEGER PRIMARY KEY, deposit_date TEXT, amount REAL); INSERT INTO deposits VALUES (1,'2023-01-01',100.0),(2,'2023-01-02',50.0),(3,'2023-01-03',75.0),(4,'2023-01-04',25.0);",
+  "reference_sql": "SELECT deposit_date, amount, SUM(amount) OVER (ORDER BY deposit_date) AS running_total FROM deposits;",
+  "order_sensitive": false
+}

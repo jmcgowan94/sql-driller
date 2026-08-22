@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_5",
+  "topic": "window_functions",
+  "difficulty": 3,
+  "title": "3-day moving average temperature",
+  "prompt": "Return day, temperature, and a 3-day moving average (current row and the 2 preceding rows) named moving_avg, ordered by day.",
+  "setup_sql": "CREATE TABLE temps (id INTEGER PRIMARY KEY, day INTEGER, temperature REAL); INSERT INTO temps VALUES (1,1,60.0),(2,2,65.0),(3,3,70.0),(4,4,68.0),(5,5,72.0);",
+  "reference_sql": "SELECT day, temperature, AVG(temperature) OVER (ORDER BY day ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moving_avg FROM temps;",
+  "order_sensitive": false
+}

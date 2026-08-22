@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_4",
+  "topic": "aggregation",
+  "difficulty": 2,
+  "title": "Departments with more than 2 employees",
+  "prompt": "Return departments that have more than 2 employees, along with the count as a column named cnt.",
+  "setup_sql": "CREATE TABLE staff2 (id INTEGER PRIMARY KEY, name TEXT, department TEXT); INSERT INTO staff2 VALUES (1,'A','Eng'),(2,'B','Eng'),(3,'C','Sales'),(4,'D','Eng'),(5,'E','Sales'),(6,'F','HR');",
+  "reference_sql": "SELECT department, COUNT(*) AS cnt FROM staff2 GROUP BY department HAVING COUNT(*) > 2;",
+  "order_sensitive": false
+}

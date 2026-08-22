@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_2",
+  "topic": "subqueries",
+  "difficulty": 1,
+  "title": "Salary vs. company average",
+  "prompt": "Return each employee's name, salary, and the overall average salary (same value repeated on every row) as a column named avg_salary, using a scalar subquery.",
+  "setup_sql": "CREATE TABLE emp5 (id INTEGER PRIMARY KEY, name TEXT, salary INTEGER); INSERT INTO emp5 VALUES (1,'A',50000),(2,'B',70000),(3,'C',90000);",
+  "reference_sql": "SELECT name, salary, (SELECT AVG(salary) FROM emp5) AS avg_salary FROM emp5;",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ctes_3",
+  "topic": "ctes",
+  "difficulty": 2,
+  "title": "Big spenders via chained CTEs",
+  "prompt": "Using two CTEs — customer_totals (total amount per customer_id, as total) and then big_spenders (rows from customer_totals with total > 50) — return customer_id and total from big_spenders.",
+  "setup_sql": "CREATE TABLE ord11 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO ord11 VALUES (1,1,50.0),(2,1,30.0),(3,2,200.0),(4,3,10.0),(5,2,100.0),(6,3,20.0);",
+  "reference_sql": "WITH customer_totals AS (SELECT customer_id, SUM(amount) AS total FROM ord11 GROUP BY customer_id), big_spenders AS (SELECT * FROM customer_totals WHERE total > 50) SELECT customer_id, total FROM big_spenders;",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_1",
+  "topic": "aggregation",
+  "difficulty": 1,
+  "title": "Orders per customer",
+  "prompt": "Return each customer_id and the number of orders they have placed, as a column named order_count.",
+  "setup_sql": "CREATE TABLE sales (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO sales VALUES (1,1,50.0),(2,1,30.0),(3,2,20.0),(4,3,90.0),(5,2,15.0),(6,3,10.0),(7,1,25.0);",
+  "reference_sql": "SELECT customer_id, COUNT(*) AS order_count FROM sales GROUP BY customer_id;",
+  "order_sensitive": false
+}

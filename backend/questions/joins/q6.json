@@ -1,0 +1,10 @@
+{
+  "id": "joins_6",
+  "topic": "joins",
+  "difficulty": 3,
+  "title": "Total spent per customer via join",
+  "prompt": "Return each customer's name along with their total amount spent (as total_spent). Customers with no orders can be excluded.",
+  "setup_sql": "CREATE TABLE c4 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO c4 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE o4 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO o4 VALUES (1,1,50.0),(2,1,30.0),(3,2,100.0),(4,3,10.0),(5,2,20.0);",
+  "reference_sql": "SELECT c4.name, SUM(o4.amount) AS total_spent FROM c4 JOIN o4 ON c4.id = o4.customer_id GROUP BY c4.name;",
+  "order_sensitive": false
+}

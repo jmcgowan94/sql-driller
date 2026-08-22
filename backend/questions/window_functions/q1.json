@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_1",
+  "topic": "window_functions",
+  "difficulty": 1,
+  "title": "Race finishing order",
+  "prompt": "Return each runner's name and their finishing rank (1 = fastest) as row_num, using ROW_NUMBER() ordered by finish_time ascending.",
+  "setup_sql": "CREATE TABLE runners (id INTEGER PRIMARY KEY, name TEXT, finish_time REAL); INSERT INTO runners VALUES (1,'Alice',12.5),(2,'Bob',11.2),(3,'Carol',13.0),(4,'Dave',10.8);",
+  "reference_sql": "SELECT name, ROW_NUMBER() OVER (ORDER BY finish_time ASC) AS row_num FROM runners;",
+  "order_sensitive": false
+}

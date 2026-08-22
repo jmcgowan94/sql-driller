@@ -1,0 +1,10 @@
+{
+  "id": "ctes_5",
+  "topic": "ctes",
+  "difficulty": 3,
+  "title": "Generate a number sequence",
+  "prompt": "Using a recursive CTE, generate the sequence of integers from 1 to 5 as a column named n.",
+  "setup_sql": "CREATE TABLE dummy13 (id INTEGER PRIMARY KEY); INSERT INTO dummy13 VALUES (1);",
+  "reference_sql": "WITH RECURSIVE counter(n) AS (SELECT 1 UNION ALL SELECT n + 1 FROM counter WHERE n < 5) SELECT n FROM counter;",
+  "order_sensitive": false
+}

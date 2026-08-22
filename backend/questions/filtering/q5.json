@@ -1,0 +1,10 @@
+{
+  "id": "filtering_5",
+  "topic": "filtering",
+  "difficulty": 3,
+  "title": "Staff awaiting a bonus",
+  "prompt": "Return the names of staff who have not yet received a bonus (bonus is NULL).",
+  "setup_sql": "CREATE TABLE staff (id INTEGER PRIMARY KEY, name TEXT, department TEXT, bonus REAL); INSERT INTO staff VALUES (1,'Nina','HR',500.0),(2,'Omar','HR',NULL),(3,'Priya','IT',1000.0),(4,'Quinn','IT',NULL),(5,'Ravi','Finance',750.0);",
+  "reference_sql": "SELECT name FROM staff WHERE bonus IS NULL;",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_2",
+  "topic": "aggregation",
+  "difficulty": 1,
+  "title": "Revenue per product",
+  "prompt": "Return each product and its total revenue (quantity * unit_price, summed) as a column named revenue.",
+  "setup_sql": "CREATE TABLE line_items (id INTEGER PRIMARY KEY, product TEXT, quantity INTEGER, unit_price REAL); INSERT INTO line_items VALUES (1,'Widget',3,10.0),(2,'Gadget',1,25.0),(3,'Widget',2,10.0),(4,'Gizmo',5,8.0),(5,'Gadget',2,25.0);",
+  "reference_sql": "SELECT product, SUM(quantity * unit_price) AS revenue FROM line_items GROUP BY product;",
+  "order_sensitive": false
+}

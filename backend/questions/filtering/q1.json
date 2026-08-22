@@ -1,0 +1,10 @@
+{
+  "id": "filtering_1",
+  "topic": "filtering",
+  "difficulty": 1,
+  "title": "Highly paid employees",
+  "prompt": "Return the name and salary of employees earning more than 65000.",
+  "setup_sql": "CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT, department TEXT, salary INTEGER, hire_date TEXT); INSERT INTO employees VALUES (1,'Alice','Engineering',95000,'2019-03-01'),(2,'Bob','Sales',62000,'2020-07-15'),(3,'Carol','Engineering',88000,'2021-01-10'),(4,'Dave','Marketing',54000,'2018-11-23'),(5,'Eve','Sales',71000,'2022-05-30'),(6,'Frank','Engineering',60000,'2017-09-12');",
+  "reference_sql": "SELECT name, salary FROM employees WHERE salary > 65000;",
+  "order_sensitive": false
+}

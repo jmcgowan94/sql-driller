@@ -1,0 +1,10 @@
+{
+  "id": "filtering_4",
+  "topic": "filtering",
+  "difficulty": 2,
+  "title": "Mid-size active orders",
+  "prompt": "Return the id and amount of all orders that are not cancelled and have an amount between 50 and 200 (inclusive).",
+  "setup_sql": "CREATE TABLE orders (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL, status TEXT); INSERT INTO orders VALUES (1,1,120.50,'completed'),(2,2,45.00,'cancelled'),(3,3,300.00,'completed'),(4,4,15.75,'pending'),(5,5,89.99,'completed'),(6,1,250.00,'cancelled'),(7,2,60.00,'pending');",
+  "reference_sql": "SELECT id, amount FROM orders WHERE status != 'cancelled' AND amount BETWEEN 50 AND 200;",
+  "order_sensitive": false
+}

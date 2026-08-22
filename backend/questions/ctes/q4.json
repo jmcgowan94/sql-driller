@@ -1,0 +1,10 @@
+{
+  "id": "ctes_4",
+  "topic": "ctes",
+  "difficulty": 2,
+  "title": "CTE joined with customers",
+  "prompt": "Using a CTE named totals that computes total amount per customer_id (as total), join it with the customers table to return each customer's name and their total. Customers with no orders can be excluded.",
+  "setup_sql": "CREATE TABLE cust12 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO cust12 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE ord12 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO ord12 VALUES (1,1,50.0),(2,1,30.0),(3,2,200.0),(4,3,10.0);",
+  "reference_sql": "WITH totals AS (SELECT customer_id, SUM(amount) AS total FROM ord12 GROUP BY customer_id) SELECT cust12.name, totals.total FROM cust12 JOIN totals ON cust12.id = totals.customer_id;",
+  "order_sensitive": false
+}

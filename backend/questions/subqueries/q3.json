@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_3",
+  "topic": "subqueries",
+  "difficulty": 2,
+  "title": "Above their department average",
+  "prompt": "Return the names of employees who earn more than the average salary of their own department (use a correlated subquery).",
+  "setup_sql": "CREATE TABLE emp6 (id INTEGER PRIMARY KEY, name TEXT, department TEXT, salary INTEGER); INSERT INTO emp6 VALUES (1,'A','Eng',90000),(2,'B','Eng',60000),(3,'C','Sales',70000),(4,'D','Sales',50000),(5,'E','Eng',100000);",
+  "reference_sql": "SELECT e1.name FROM emp6 e1 WHERE e1.salary > (SELECT AVG(e2.salary) FROM emp6 e2 WHERE e2.department = e1.department);",
+  "order_sensitive": false
+}

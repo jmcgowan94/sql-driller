@@ -1,0 +1,10 @@
+{
+  "id": "joins_5",
+  "topic": "joins",
+  "difficulty": 3,
+  "title": "Order line details across three tables",
+  "prompt": "Return customer name (as customer), product name (as product), and price for every order, joining across all three tables.",
+  "setup_sql": "CREATE TABLE c3 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO c3 VALUES (1,'Alice'),(2,'Bob'); CREATE TABLE o3 (id INTEGER PRIMARY KEY, customer_id INTEGER, product_id INTEGER); INSERT INTO o3 VALUES (1,1,1),(2,1,2),(3,2,1); CREATE TABLE p3 (id INTEGER PRIMARY KEY, name TEXT, price REAL); INSERT INTO p3 VALUES (1,'Widget',10.0),(2,'Gadget',20.0);",
+  "reference_sql": "SELECT c3.name AS customer, p3.name AS product, p3.price FROM o3 JOIN c3 ON o3.customer_id = c3.id JOIN p3 ON o3.product_id = p3.id;",
+  "order_sensitive": false
+}

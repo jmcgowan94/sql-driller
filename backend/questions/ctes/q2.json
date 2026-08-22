@@ -1,0 +1,10 @@
+{
+  "id": "ctes_2",
+  "topic": "ctes",
+  "difficulty": 1,
+  "title": "Customer totals via CTE",
+  "prompt": "Using a CTE named customer_totals that computes total amount spent per customer_id (as total), return customer_id and total for customers whose total exceeds 100.",
+  "setup_sql": "CREATE TABLE ord10 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO ord10 VALUES (1,1,50.0),(2,1,30.0),(3,2,200.0),(4,3,10.0),(5,2,100.0);",
+  "reference_sql": "WITH customer_totals AS (SELECT customer_id, SUM(amount) AS total FROM ord10 GROUP BY customer_id) SELECT customer_id, total FROM customer_totals WHERE total > 100;",
+  "order_sensitive": false
+}

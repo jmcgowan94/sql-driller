@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_3",
+  "topic": "aggregation",
+  "difficulty": 2,
+  "title": "Average order amount per month",
+  "prompt": "Return the month (format 'YYYY-MM', using strftime) and the average order amount for that month, as columns month and avg_amount.",
+  "setup_sql": "CREATE TABLE orders2 (id INTEGER PRIMARY KEY, order_date TEXT, amount REAL); INSERT INTO orders2 VALUES (1,'2023-01-05',100.0),(2,'2023-01-20',50.0),(3,'2023-02-02',200.0),(4,'2023-02-15',150.0),(5,'2023-03-10',80.0);",
+  "reference_sql": "SELECT strftime('%Y-%m', order_date) AS month, AVG(amount) AS avg_amount FROM orders2 GROUP BY month;",
+  "order_sensitive": false
+}

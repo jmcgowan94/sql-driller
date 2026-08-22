@@ -1,0 +1,10 @@
+{
+  "id": "ctes_1",
+  "topic": "ctes",
+  "difficulty": 1,
+  "title": "High earners via CTE",
+  "prompt": "Using a CTE named high_earners that selects employees with salary > 60000, return the name and salary from that CTE.",
+  "setup_sql": "CREATE TABLE emp10 (id INTEGER PRIMARY KEY, name TEXT, salary INTEGER); INSERT INTO emp10 VALUES (1,'A',50000),(2,'B',90000),(3,'C',75000),(4,'D',40000);",
+  "reference_sql": "WITH high_earners AS (SELECT name, salary FROM emp10 WHERE salary > 60000) SELECT name, salary FROM high_earners;",
+  "order_sensitive": false
+}

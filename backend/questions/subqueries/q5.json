@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_5",
+  "topic": "subqueries",
+  "difficulty": 3,
+  "title": "Customers with zero orders (NOT EXISTS)",
+  "prompt": "Return the names of customers who have NOT placed any orders, using NOT EXISTS.",
+  "setup_sql": "CREATE TABLE cust7 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO cust7 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE ord7 (id INTEGER PRIMARY KEY, customer_id INTEGER); INSERT INTO ord7 VALUES (1,1),(2,3);",
+  "reference_sql": "SELECT name FROM cust7 c WHERE NOT EXISTS (SELECT 1 FROM ord7 o WHERE o.customer_id = c.id);",
+  "order_sensitive": false
+}

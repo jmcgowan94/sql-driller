@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_1",
+  "topic": "subqueries",
+  "difficulty": 1,
+  "title": "Customers with a big order",
+  "prompt": "Return the names of customers who have placed at least one order with amount greater than 100 (use a subquery with IN).",
+  "setup_sql": "CREATE TABLE cust5 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO cust5 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE ord5 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO ord5 VALUES (1,1,150.0),(2,2,40.0),(3,3,200.0),(4,1,20.0);",
+  "reference_sql": "SELECT name FROM cust5 WHERE id IN (SELECT customer_id FROM ord5 WHERE amount > 100);",
+  "order_sensitive": false
+}

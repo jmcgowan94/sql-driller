@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_6",
+  "topic": "aggregation",
+  "difficulty": 3,
+  "title": "Department with the highest average salary",
+  "prompt": "Return the department with the highest average salary, along with that average as a column named avg_salary.",
+  "setup_sql": "CREATE TABLE staff3 (id INTEGER PRIMARY KEY, name TEXT, department TEXT, salary INTEGER); INSERT INTO staff3 VALUES (1,'A','Eng',90000),(2,'B','Eng',110000),(3,'C','Sales',60000),(4,'D','Sales',65000),(5,'E','HR',50000),(6,'F','HR',55000);",
+  "reference_sql": "SELECT department, AVG(salary) AS avg_salary FROM staff3 GROUP BY department ORDER BY avg_salary DESC LIMIT 1;",
+  "order_sensitive": false
+}

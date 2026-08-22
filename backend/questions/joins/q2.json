@@ -1,0 +1,10 @@
+{
+  "id": "joins_2",
+  "topic": "joins",
+  "difficulty": 1,
+  "title": "Products with category names",
+  "prompt": "Return each product's name along with its category name (as column category_name).",
+  "setup_sql": "CREATE TABLE categories (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO categories VALUES (1,'Hardware'),(2,'Toys'); CREATE TABLE products2 (id INTEGER PRIMARY KEY, name TEXT, category_id INTEGER); INSERT INTO products2 VALUES (1,'Widget',1),(2,'Doll',2),(3,'Hammer',1);",
+  "reference_sql": "SELECT products2.name, categories.name AS category_name FROM products2 JOIN categories ON products2.category_id = categories.id;",
+  "order_sensitive": false
+}

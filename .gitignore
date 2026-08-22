@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.venv/
+backend/progress.db
+.claude/settings.local.json

@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_5",
+  "topic": "aggregation",
+  "difficulty": 3,
+  "title": "Accounts with a positive balance",
+  "prompt": "Return each account_id and the sum of its transaction amounts as balance, only for accounts whose balance is positive.",
+  "setup_sql": "CREATE TABLE transactions (id INTEGER PRIMARY KEY, account_id INTEGER, amount REAL); INSERT INTO transactions VALUES (1,1,100.0),(2,1,-30.0),(3,2,50.0),(4,2,50.0),(5,3,-10.0),(6,1,20.0),(7,3,5.0);",
+  "reference_sql": "SELECT account_id, SUM(amount) AS balance FROM transactions GROUP BY account_id HAVING SUM(amount) > 0;",
+  "order_sensitive": false
+}

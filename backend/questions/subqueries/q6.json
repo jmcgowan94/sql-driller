@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_6",
+  "topic": "subqueries",
+  "difficulty": 3,
+  "title": "Priced above category average",
+  "prompt": "Return the names of products priced above the average price within their own category (nested/correlated subquery).",
+  "setup_sql": "CREATE TABLE prod8 (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL); INSERT INTO prod8 VALUES (1,'A','Hardware',10.0),(2,'B','Hardware',30.0),(3,'C','Toys',5.0),(4,'D','Toys',15.0),(5,'E','Hardware',20.0);",
+  "reference_sql": "SELECT name FROM prod8 p1 WHERE price > (SELECT AVG(price) FROM prod8 p2 WHERE p2.category = p1.category);",
+  "order_sensitive": false
+}

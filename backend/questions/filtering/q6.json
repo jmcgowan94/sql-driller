@@ -1,0 +1,10 @@
+{
+  "id": "filtering_6",
+  "topic": "filtering",
+  "difficulty": 3,
+  "title": "Gmail Bostonians or any Chicago contact",
+  "prompt": "Return the names of contacts whose email is a gmail address AND who live in Boston, OR who live in Chicago (regardless of email).",
+  "setup_sql": "CREATE TABLE contacts (id INTEGER PRIMARY KEY, name TEXT, email TEXT, city TEXT); INSERT INTO contacts VALUES (1,'Anna Smith','anna.smith@gmail.com','Boston'),(2,'Ben Stone','ben@yahoo.com','Chicago'),(3,'Cara Jones','cara.jones@gmail.com','Boston'),(4,'Drew Ng','drew@gmail.com','Denver'),(5,'Elin Park','elin.park@hotmail.com','Chicago');",
+  "reference_sql": "SELECT name FROM contacts WHERE (email LIKE '%gmail.com' AND city = 'Boston') OR city = 'Chicago';",
+  "order_sensitive": false
+}

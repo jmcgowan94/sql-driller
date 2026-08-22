@@ -1,0 +1,10 @@
+{
+  "id": "joins_1",
+  "topic": "joins",
+  "difficulty": 1,
+  "title": "Order details with customer names",
+  "prompt": "Return the order id, customer name, and amount for every order (inner join orders with customers).",
+  "setup_sql": "CREATE TABLE cust (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO cust VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE ord (id INTEGER PRIMARY KEY, cust_id INTEGER, amount REAL); INSERT INTO ord VALUES (1,1,50.0),(2,2,30.0),(3,1,20.0),(4,3,75.0);",
+  "reference_sql": "SELECT ord.id, cust.name, ord.amount FROM ord JOIN cust ON ord.cust_id = cust.id;",
+  "order_sensitive": false
+}
