@@ -45,6 +45,7 @@ function renderDataTable(columns, rows) {
 
 function renderSchema(tables) {
   const details = el("details", { className: "schema" });
+  details.open = true;
   details.appendChild(el("summary", { text: `Schema (${tables.length} table${tables.length === 1 ? "" : "s"})` }));
   for (const t of tables) {
     const block = el("div", { className: "table-block" });
