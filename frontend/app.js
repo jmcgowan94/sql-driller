@@ -81,8 +81,10 @@ function renderQuestionCard(question) {
   ]);
   card.appendChild(header);
 
-  card.appendChild(el("p", { className: "prompt", text: question.prompt }));
-  card.appendChild(renderSchema(question.tables));
+  const cardLeft = el("div", { className: "card-left" }, [
+    el("p", { className: "prompt", text: question.prompt }),
+    renderSchema(question.tables),
+  ]);
 
   const textarea = el("textarea", {
     className: "sql-editor",
@@ -97,15 +99,15 @@ function renderQuestionCard(question) {
       textarea.selectionStart = textarea.selectionEnd = start + 2;
     }
   });
-  card.appendChild(textarea);
-
   const runBtn = el("button", { className: "run-btn", text: "Run & Check" });
   const feedback = el("span", { className: "feedback" });
   const actions = el("div", { className: "actions" }, [runBtn, feedback]);
-  card.appendChild(actions);
 
   const resultArea = el("div");
-  card.appendChild(resultArea);
+
+  const cardRight = el("div", { className: "card-right" }, [textarea, actions, resultArea]);
+
+  card.appendChild(el("div", { className: "card-body" }, [cardLeft, cardRight]));
 
   runBtn.addEventListener("click", async () => {
     const sql = textarea.value.trim();
