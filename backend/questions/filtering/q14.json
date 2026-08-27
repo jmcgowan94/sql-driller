@@ -1,0 +1,10 @@
+{
+  "id": "filtering_14",
+  "topic": "filtering",
+  "difficulty": 7,
+  "title": "Salary tier filtering outside Sales",
+  "prompt": "Compute a salary tier for each employee using: 'A' if salary >= 100000, 'B' if salary >= 70000, otherwise 'C'. Return the name (column: name) of employees whose tier is 'A' or 'B', excluding anyone in the 'Sales' department, using a CASE expression inside the WHERE clause.",
+  "setup_sql": "CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT, salary REAL, department TEXT); INSERT INTO employees VALUES (1,'Noah Blake',105000,'Engineering'),(2,'Opal Cruz',72000,'Sales'),(3,'Piper Duval',95000,'Marketing'),(4,'Quincy Ellis',58000,'Engineering'),(5,'Rosa Fenn',110000,'Sales'),(6,'Silas Gray',68000,'Support');",
+  "reference_sql": "SELECT name FROM employees WHERE CASE WHEN salary >= 100000 THEN 'A' WHEN salary >= 70000 THEN 'B' ELSE 'C' END IN ('A','B') AND department <> 'Sales';",
+  "order_sensitive": false
+}

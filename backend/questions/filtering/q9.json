@@ -1,0 +1,10 @@
+{
+  "id": "filtering_9",
+  "topic": "filtering",
+  "difficulty": 5,
+  "title": "Electronics and home SKUs excluding refurbished",
+  "prompt": "Return the name (column: name) of products whose sku starts with 'ELEC-' or starts with 'HOME-', but exclude any product whose name contains the word 'Refurbished'.",
+  "setup_sql": "CREATE TABLE products (id INTEGER PRIMARY KEY, name TEXT, sku TEXT); INSERT INTO products VALUES (1,'Wireless Mouse','ELEC-1001'),(2,'Refurbished Laptop','ELEC-1002'),(3,'Toaster Oven','HOME-2001'),(4,'Refurbished Blender','HOME-2002'),(5,'Desk Lamp','HOME-2003'),(6,'Garden Hose','OUT-3001'),(7,'Bluetooth Speaker','ELEC-1003');",
+  "reference_sql": "SELECT name FROM products WHERE (sku LIKE 'ELEC-%' OR sku LIKE 'HOME-%') AND name NOT LIKE '%Refurbished%';",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_19",
+  "topic": "window_functions",
+  "difficulty": 10,
+  "title": "Month-over-month revenue growth by region",
+  "prompt": "Using a CTE that first aggregates total revenue by region and month (month formatted as the 'YYYY-MM' substring of sale_date), return region, month, monthly_revenue, and growth_pct — the percentage change in monthly_revenue versus the previous month for that region, computed with LAG() PARTITION BY region ORDER BY month, rounded to 2 decimal places. growth_pct should be NULL for each region's first month. Order the result by region, then month.",
+  "setup_sql": "CREATE TABLE region_sales (id INTEGER PRIMARY KEY, region TEXT, sale_date TEXT, amount REAL); INSERT INTO region_sales VALUES (1,'East','2023-01-05',1000),(2,'East','2023-01-20',500),(3,'East','2023-02-10',900),(4,'East','2023-03-05',1200),(5,'West','2023-01-15',2000),(6,'West','2023-02-20',1800),(7,'West','2023-03-10',2500);",
+  "reference_sql": "WITH monthly AS (SELECT region, substr(sale_date,1,7) AS month, SUM(amount) AS monthly_revenue FROM region_sales GROUP BY region, substr(sale_date,1,7)) SELECT region, month, monthly_revenue, ROUND(100.0 * (monthly_revenue - LAG(monthly_revenue) OVER (PARTITION BY region ORDER BY month)) / LAG(monthly_revenue) OVER (PARTITION BY region ORDER BY month), 2) AS growth_pct FROM monthly ORDER BY region, month;",
+  "order_sensitive": true
+}

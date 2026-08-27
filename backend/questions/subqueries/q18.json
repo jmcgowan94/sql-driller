@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_18",
+  "topic": "subqueries",
+  "difficulty": 9,
+  "title": "Top scorer per subject",
+  "prompt": "Return the student, subject, and score for whoever scored the highest in each subject (ties should both appear). Do not use RANK, ROW_NUMBER, or any window function — instead use a correlated subquery: a row qualifies if a COUNT of same-subject rows with a strictly higher score equals zero.",
+  "setup_sql": "CREATE TABLE score18 (id INTEGER PRIMARY KEY, student TEXT, subject TEXT, score REAL); INSERT INTO score18 VALUES (1,'Amy','Math',88),(2,'Ben','Math',95),(3,'Cara','Math',70),(4,'Dan','Science',80),(5,'Ella','Science',92),(6,'Finn','Science',92);",
+  "reference_sql": "SELECT student, subject, score FROM score18 s1 WHERE (SELECT COUNT(*) FROM score18 s2 WHERE s2.subject = s1.subject AND s2.score > s1.score) = 0;",
+  "order_sensitive": false
+}

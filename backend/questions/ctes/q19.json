@@ -1,0 +1,10 @@
+{
+  "id": "ctes_19",
+  "topic": "ctes",
+  "difficulty": 10,
+  "title": "Bill of materials quantity explosion",
+  "prompt": "A bicycle's bill of materials is stored in bom19(parent_id, child_id, quantity_per), where quantity_per means one unit of parent_id requires quantity_per units of child_id. The root product is Bike (id 1). Using a recursive CTE named explosion(part_id, qty) that starts from Bike's direct components and, at each recursive step, multiplies the running quantity by quantity_per as it descends the tree, compute the total quantity required of every part in the full explosion below the root — summing contributions together whenever a part is reached via more than one path. Return part_id and total_qty (the summed quantity) for every part with id != 1.",
+  "setup_sql": "CREATE TABLE bom19 (parent_id INTEGER, child_id INTEGER, quantity_per INTEGER); INSERT INTO bom19 VALUES (1,2,2),(1,3,1),(2,4,3),(2,5,1),(3,5,1),(3,6,4);",
+  "reference_sql": "WITH RECURSIVE explosion(part_id, qty) AS (SELECT child_id, quantity_per FROM bom19 WHERE parent_id = 1 UNION ALL SELECT b.child_id, e.qty * b.quantity_per FROM bom19 b JOIN explosion e ON b.parent_id = e.part_id) SELECT part_id, SUM(qty) AS total_qty FROM explosion GROUP BY part_id;",
+  "order_sensitive": false
+}

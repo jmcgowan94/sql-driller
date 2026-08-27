@@ -1,0 +1,10 @@
+{
+  "id": "ctes_20",
+  "topic": "ctes",
+  "difficulty": 10,
+  "title": "Recipe ingredient explosion",
+  "prompt": "A cake recipe's component breakdown is stored in recipe_components20(parent_id, child_id, qty_per), where qty_per means one batch of parent_id requires qty_per batches of child_id. The root recipe is Cake (id 1). Using a recursive CTE named explosion(component_id, qty) that starts from Cake's direct sub-components and, at each recursive step, multiplies the running quantity by qty_per as it descends the tree, compute the total quantity required of every raw ingredient in the full explosion below the root — summing contributions together whenever an ingredient is reached via more than one path. Return component_id and total_qty (the summed quantity) for every component with id != 1.",
+  "setup_sql": "CREATE TABLE recipe_components20 (parent_id INTEGER, child_id INTEGER, qty_per INTEGER); INSERT INTO recipe_components20 VALUES (1,2,2),(1,3,1),(2,4,3),(2,5,1),(3,4,1),(3,6,2);",
+  "reference_sql": "WITH RECURSIVE explosion(component_id, qty) AS (SELECT child_id, qty_per FROM recipe_components20 WHERE parent_id = 1 UNION ALL SELECT rc.child_id, e.qty * rc.qty_per FROM recipe_components20 rc JOIN explosion e ON rc.parent_id = e.component_id) SELECT component_id, SUM(qty) AS total_qty FROM explosion GROUP BY component_id;",
+  "order_sensitive": false
+}

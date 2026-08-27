@@ -1,0 +1,10 @@
+{
+  "id": "filtering_15",
+  "topic": "filtering",
+  "difficulty": 8,
+  "title": "Orders in the 30-day window before June 15",
+  "prompt": "Using the fixed reference date '2024-06-15', return the customer_name and order_date (columns: customer_name, order_date) for orders placed within the trailing 30-day window ending on and including that date (i.e., order_date is on or after 30 days before 2024-06-15, and on or before 2024-06-15).",
+  "setup_sql": "CREATE TABLE orders (id INTEGER PRIMARY KEY, customer_name TEXT, order_date TEXT); INSERT INTO orders VALUES (1,'Tara Nash','2024-06-15'),(2,'Ugo Bello','2024-05-20'),(3,'Vera Lang','2024-04-01'),(4,'Wren Ito','2024-05-16'),(5,'Xan Ford','2024-06-01'),(6,'Yara Diop','2024-05-10');",
+  "reference_sql": "SELECT customer_name, order_date FROM orders WHERE order_date >= date('2024-06-15','-30 days') AND order_date <= '2024-06-15';",
+  "order_sensitive": false
+}

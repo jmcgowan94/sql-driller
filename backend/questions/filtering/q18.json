@@ -1,0 +1,10 @@
+{
+  "id": "filtering_18",
+  "topic": "filtering",
+  "difficulty": 9,
+  "title": "Employees on Team Alpha but not Team Beta",
+  "prompt": "Return the employee_name (column: employee_name) of employees assigned to the 'Alpha' team but NOT assigned to the 'Beta' team, using EXCEPT between two subqueries on the assignments table.",
+  "setup_sql": "CREATE TABLE assignments (id INTEGER PRIMARY KEY, employee_name TEXT, team TEXT); INSERT INTO assignments VALUES (1,'Kai Nordahl','Alpha'),(2,'Kai Nordahl','Beta'),(3,'Lena Ruiz','Alpha'),(4,'Milo Petrov','Beta'),(5,'Nadia Voss','Alpha'),(6,'Oren Katz','Alpha'),(7,'Oren Katz','Beta');",
+  "reference_sql": "SELECT employee_name FROM assignments WHERE team = 'Alpha' EXCEPT SELECT employee_name FROM assignments WHERE team = 'Beta';",
+  "order_sensitive": false
+}

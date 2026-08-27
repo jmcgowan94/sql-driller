@@ -1,0 +1,10 @@
+{
+  "id": "joins_16",
+  "topic": "joins",
+  "difficulty": 8,
+  "title": "Rank employees by salary within department",
+  "prompt": "For each employee, return the department name (as department_name), the employee's name (as employee_name), their salary, and that employee's rank within their department by salary descending (as salary_rank, using ROW_NUMBER so ranks are unique and 1 is the highest paid in the department).",
+  "setup_sql": "CREATE TABLE dept16 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO dept16 VALUES (1,'Engineering'),(2,'Sales'); CREATE TABLE emp16 (id INTEGER PRIMARY KEY, name TEXT, department_id INTEGER, salary REAL); INSERT INTO emp16 VALUES (1,'Alice',1,90000.0),(2,'Bob',1,110000.0),(3,'Carol',1,95000.0),(4,'Dave',2,60000.0),(5,'Eve',2,70000.0);",
+  "reference_sql": "SELECT dept16.name AS department_name, emp16.name AS employee_name, emp16.salary, ROW_NUMBER() OVER (PARTITION BY emp16.department_id ORDER BY emp16.salary DESC) AS salary_rank FROM emp16 JOIN dept16 ON emp16.department_id = dept16.id;",
+  "order_sensitive": false
+}

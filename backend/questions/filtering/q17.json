@@ -1,0 +1,10 @@
+{
+  "id": "filtering_17",
+  "topic": "filtering",
+  "difficulty": 9,
+  "title": "Customers who bought both Widget and Gadget",
+  "prompt": "Return the customer_name (column: customer_name) of customers who have purchased both 'Widget' and 'Gadget', using INTERSECT between two subqueries on the purchases table.",
+  "setup_sql": "CREATE TABLE purchases (id INTEGER PRIMARY KEY, customer_name TEXT, product TEXT); INSERT INTO purchases VALUES (1,'Farah Kline','Widget'),(2,'Farah Kline','Gadget'),(3,'Gus Palmer','Widget'),(4,'Gus Palmer','Sprocket'),(5,'Hana Osei','Gadget'),(6,'Ira Delgado','Widget'),(7,'Ira Delgado','Gadget'),(8,'Jill Stone','Sprocket');",
+  "reference_sql": "SELECT customer_name FROM purchases WHERE product = 'Widget' INTERSECT SELECT customer_name FROM purchases WHERE product = 'Gadget';",
+  "order_sensitive": false
+}

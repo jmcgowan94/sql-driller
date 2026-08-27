@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_16",
+  "topic": "window_functions",
+  "difficulty": 8,
+  "title": "Top 3 sales amount tiers",
+  "prompt": "Return rep, amount, and dense_rnk for every sales rep whose amount is among the top 3 distinct amounts, using DENSE_RANK() ordered by amount descending, filtered to dense_rnk <= 3. Note there are ties in the amounts, so this is not the same set of rows as filtering RANK() <= 3. Hint: compute DENSE_RANK() in a subquery, then filter in the outer query (SQLite has no QUALIFY).",
+  "setup_sql": "CREATE TABLE quarterly_sales (id INTEGER PRIMARY KEY, rep TEXT, amount REAL); INSERT INTO quarterly_sales VALUES (1,'Alice',10000),(2,'Bob',10000),(3,'Carol',9000),(4,'Dave',9000),(5,'Eve',9000),(6,'Frank',8000),(7,'Grace',7000),(8,'Heidi',7000);",
+  "reference_sql": "SELECT rep, amount, dense_rnk FROM (SELECT rep, amount, DENSE_RANK() OVER (ORDER BY amount DESC) AS dense_rnk FROM quarterly_sales) WHERE dense_rnk <= 3;",
+  "order_sensitive": false
+}

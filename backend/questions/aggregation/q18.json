@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_18",
+  "topic": "aggregation",
+  "difficulty": 9,
+  "title": "Products selling above average quantity",
+  "prompt": "Using the sales18 table, return each product (column product) along with its total quantity sold (column total_quantity), but only for products whose total quantity sold is greater than the average total quantity sold across all products.",
+  "setup_sql": "CREATE TABLE sales18 (id INTEGER PRIMARY KEY, product TEXT, quantity INTEGER); INSERT INTO sales18 VALUES (1,'Widget',50),(2,'Widget',60),(3,'Gadget',10),(4,'Gadget',5),(5,'Gizmo',20),(6,'Thingamajig',5),(7,'Thingamajig',5);",
+  "reference_sql": "SELECT product, SUM(quantity) AS total_quantity FROM sales18 GROUP BY product HAVING SUM(quantity) > (SELECT AVG(q) FROM (SELECT SUM(quantity) AS q FROM sales18 GROUP BY product) sub);",
+  "order_sensitive": false
+}

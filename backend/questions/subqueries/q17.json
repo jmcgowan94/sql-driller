@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_17",
+  "topic": "subqueries",
+  "difficulty": 9,
+  "title": "Priciest product per category",
+  "prompt": "Return the name, category, and price of the single highest-priced product in each category. Do not use RANK, ROW_NUMBER, or any window function — instead use a correlated subquery: a product qualifies if there is NO OTHER product in the same category with a strictly higher price (a correlated NOT EXISTS check).",
+  "setup_sql": "CREATE TABLE product17 (id INTEGER PRIMARY KEY, name TEXT, category TEXT, price REAL); INSERT INTO product17 VALUES (1,'Widget','Hardware',25),(2,'Gadget','Hardware',40),(3,'Doohickey','Hardware',15),(4,'Toy Car','Toys',10),(5,'Toy Robot','Toys',30),(6,'Puzzle','Toys',20);",
+  "reference_sql": "SELECT name, category, price FROM product17 p1 WHERE NOT EXISTS (SELECT 1 FROM product17 p2 WHERE p2.category = p1.category AND p2.price > p1.price);",
+  "order_sensitive": false
+}

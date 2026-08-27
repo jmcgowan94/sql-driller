@@ -1,0 +1,10 @@
+{
+  "id": "ctes_14",
+  "topic": "ctes",
+  "difficulty": 7,
+  "title": "Student performance summary",
+  "prompt": "Using three separate CTEs in one WITH clause — avg_grades (student_id, avg_grade = average score in grades14 per student), absence_counts (student_id, total_absences = count of rows in attendance14 where present = 0, per student), and enrollment_counts (student_id, num_classes = count of rows in enrollments14 per student) — combine all three by joining them together with the students14 table in your final SELECT. Return name, avg_grade, total_absences, and num_classes for each student.",
+  "setup_sql": "CREATE TABLE students14 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO students14 VALUES (1,'Sam'),(2,'Tia'); CREATE TABLE grades14 (id INTEGER PRIMARY KEY, student_id INTEGER, score INTEGER); INSERT INTO grades14 VALUES (1,1,90),(2,1,80),(3,2,70),(4,2,85); CREATE TABLE attendance14 (id INTEGER PRIMARY KEY, student_id INTEGER, present INTEGER); INSERT INTO attendance14 VALUES (1,1,1),(2,1,0),(3,1,1),(4,2,0),(5,2,0),(6,2,1); CREATE TABLE enrollments14 (id INTEGER PRIMARY KEY, student_id INTEGER, class_name TEXT); INSERT INTO enrollments14 VALUES (1,1,'Math'),(2,1,'Science'),(3,2,'Math'),(4,2,'Art'),(5,2,'History');",
+  "reference_sql": "WITH avg_grades AS (SELECT student_id, AVG(score) AS avg_grade FROM grades14 GROUP BY student_id), absence_counts AS (SELECT student_id, COUNT(*) AS total_absences FROM attendance14 WHERE present = 0 GROUP BY student_id), enrollment_counts AS (SELECT student_id, COUNT(*) AS num_classes FROM enrollments14 GROUP BY student_id) SELECT s.name, ag.avg_grade, ac.total_absences, ec.num_classes FROM students14 s JOIN avg_grades ag ON s.id = ag.student_id JOIN absence_counts ac ON s.id = ac.student_id JOIN enrollment_counts ec ON s.id = ec.student_id;",
+  "order_sensitive": false
+}

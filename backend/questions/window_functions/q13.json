@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_13",
+  "topic": "window_functions",
+  "difficulty": 7,
+  "title": "Revenue share of total",
+  "prompt": "Return product, revenue, and pct_of_total — each product's revenue expressed as a percentage (0-100) of the total revenue across all products, rounded to 2 decimal places. Compute the total using a window SUM() OVER () with no PARTITION BY.",
+  "setup_sql": "CREATE TABLE product_revenue (id INTEGER PRIMARY KEY, product TEXT, revenue REAL); INSERT INTO product_revenue VALUES (1,'Widget',1000.0),(2,'Gadget',2500.0),(3,'Gizmo',1500.0),(4,'Doohickey',3000.0),(5,'Thingamajig',2000.0);",
+  "reference_sql": "SELECT product, revenue, ROUND(100.0 * revenue / SUM(revenue) OVER (), 2) AS pct_of_total FROM product_revenue;",
+  "order_sensitive": false
+}

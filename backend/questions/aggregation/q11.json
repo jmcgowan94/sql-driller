@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_11",
+  "topic": "aggregation",
+  "difficulty": 6,
+  "title": "Total revenue per category",
+  "prompt": "Using the categories11, products11, and order_items11 tables, return each category name along with the total revenue (quantity * price, summed) from all order items for products in that category, as columns category and total_revenue.",
+  "setup_sql": "CREATE TABLE categories11 (id INTEGER PRIMARY KEY, name TEXT); CREATE TABLE products11 (id INTEGER PRIMARY KEY, name TEXT, category_id INTEGER); CREATE TABLE order_items11 (id INTEGER PRIMARY KEY, product_id INTEGER, quantity INTEGER, price INTEGER); INSERT INTO categories11 VALUES (1,'Electronics'),(2,'Furniture'); INSERT INTO products11 VALUES (1,'Laptop',1),(2,'Phone',1),(3,'Desk',2),(4,'Chair',2); INSERT INTO order_items11 VALUES (1,1,2,1000),(2,2,3,500),(3,3,1,300),(4,4,4,100),(5,1,1,1000);",
+  "reference_sql": "SELECT c.name AS category, SUM(oi.quantity * oi.price) AS total_revenue FROM order_items11 oi JOIN products11 p ON oi.product_id = p.id JOIN categories11 c ON p.category_id = c.id GROUP BY c.name;",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ctes_18",
+  "topic": "ctes",
+  "difficulty": 9,
+  "title": "Latest price per product",
+  "prompt": "Using a CTE named ranked_prices that numbers each product's price entries in the price_history18 table by effective_date descending (most recent = 1) via ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY effective_date DESC) AS rn, write a query that returns product_id, effective_date, and price for each product's single most recent price (where rn = 1).",
+  "setup_sql": "CREATE TABLE price_history18 (id INTEGER PRIMARY KEY, product_id INTEGER, effective_date TEXT, price REAL); INSERT INTO price_history18 VALUES (1,1,'2024-01-01',9.99),(2,1,'2024-05-01',12.99),(3,1,'2024-03-01',10.99),(4,2,'2024-02-01',19.99),(5,2,'2024-06-01',17.99),(6,3,'2024-01-15',5.49);",
+  "reference_sql": "WITH ranked_prices AS (SELECT product_id, effective_date, price, ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY effective_date DESC) AS rn FROM price_history18) SELECT product_id, effective_date, price FROM ranked_prices WHERE rn = 1;",
+  "order_sensitive": false
+}

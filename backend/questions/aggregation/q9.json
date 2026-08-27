@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_9",
+  "topic": "aggregation",
+  "difficulty": 5,
+  "title": "Completed vs cancelled orders per customer",
+  "prompt": "Return each customer along with the number of completed orders (column completed_count) and the number of cancelled orders (column cancelled_count), as columns customer, completed_count, cancelled_count.",
+  "setup_sql": "CREATE TABLE orders9 (id INTEGER PRIMARY KEY, customer TEXT, status TEXT); INSERT INTO orders9 VALUES (1,'Alice','completed'),(2,'Alice','completed'),(3,'Alice','cancelled'),(4,'Bob','cancelled'),(5,'Bob','cancelled'),(6,'Bob','completed'),(7,'Carol','completed'),(8,'Carol','completed');",
+  "reference_sql": "SELECT customer, SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed_count, SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled_count FROM orders9 GROUP BY customer;",
+  "order_sensitive": false
+}

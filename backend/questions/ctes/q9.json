@@ -1,0 +1,10 @@
+{
+  "id": "ctes_9",
+  "topic": "ctes",
+  "difficulty": 5,
+  "title": "Department salary totals report",
+  "prompt": "Using a CTE named dept_totals that computes the total salary (as total_salary) per department_id from the employees9 table, join it with the departments9 table to return department_name and total_salary for every department that has at least one employee.",
+  "setup_sql": "CREATE TABLE departments9 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO departments9 VALUES (1,'Engineering'),(2,'Sales'),(3,'Marketing'); CREATE TABLE employees9 (id INTEGER PRIMARY KEY, name TEXT, department_id INTEGER, salary INTEGER); INSERT INTO employees9 VALUES (1,'Ana',1,90000),(2,'Ben',1,85000),(3,'Cara',2,60000),(4,'Dev',2,65000),(5,'Ella',3,55000);",
+  "reference_sql": "WITH dept_totals AS (SELECT department_id, SUM(salary) AS total_salary FROM employees9 GROUP BY department_id) SELECT d.name AS department_name, dt.total_salary FROM departments9 d JOIN dept_totals dt ON d.id = dt.department_id;",
+  "order_sensitive": false
+}

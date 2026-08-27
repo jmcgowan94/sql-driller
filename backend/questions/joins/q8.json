@@ -1,0 +1,10 @@
+{
+  "id": "joins_8",
+  "topic": "joins",
+  "difficulty": 4,
+  "title": "Computer Science enrollments across four tables",
+  "prompt": "Return the student name (as student_name), course title (as course_title), and grade for every enrollment where the course belongs to the 'Computer Science' department. Join the students, enrollments, courses, and departments tables.",
+  "setup_sql": "CREATE TABLE stu8 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO stu8 VALUES (1,'Dan'),(2,'Eve'),(3,'Frank'); CREATE TABLE dept8 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO dept8 VALUES (1,'Computer Science'),(2,'Mathematics'); CREATE TABLE crs8 (id INTEGER PRIMARY KEY, title TEXT, department_id INTEGER); INSERT INTO crs8 VALUES (1,'Algorithms',1),(2,'Databases',1),(3,'Calculus',2); CREATE TABLE enr8 (id INTEGER PRIMARY KEY, student_id INTEGER, course_id INTEGER, grade TEXT); INSERT INTO enr8 VALUES (1,1,1,'A'),(2,1,3,'B'),(3,2,2,'A'),(4,3,3,'C');",
+  "reference_sql": "SELECT stu8.name AS student_name, crs8.title AS course_title, enr8.grade FROM enr8 JOIN stu8 ON enr8.student_id = stu8.id JOIN crs8 ON enr8.course_id = crs8.id JOIN dept8 ON crs8.department_id = dept8.id WHERE dept8.name = 'Computer Science';",
+  "order_sensitive": false
+}

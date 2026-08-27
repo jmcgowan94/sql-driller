@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_20",
+  "topic": "subqueries",
+  "difficulty": 10,
+  "title": "High-achieving borrowers in busy grades",
+  "prompt": "Return the name, grade, and gpa of every student who satisfies ALL of the following: (1) has borrowed at least one library book, (2) has a gpa higher than the average gpa of their own grade, and (3) belongs to a grade with more than one student. You must implement each condition as its own correlated subquery in the WHERE clause: an EXISTS subquery for (1), a scalar correlated subquery comparison for (2), and a correlated COUNT aggregate subquery for (3).",
+  "setup_sql": "CREATE TABLE students20 (id INTEGER PRIMARY KEY, name TEXT, grade TEXT, gpa REAL); INSERT INTO students20 VALUES (1,'Amy','Freshman',3.8),(2,'Ben','Freshman',3.0),(3,'Cara','Freshman',3.2),(4,'Dan','Sophomore',3.9),(5,'Eve','Sophomore',2.5),(6,'Finn','Senior',3.5); CREATE TABLE library_loans20 (id INTEGER PRIMARY KEY, student_id INTEGER, book TEXT); INSERT INTO library_loans20 VALUES (1,1,'Book A'),(2,2,'Book B'),(3,4,'Book C');",
+  "reference_sql": "SELECT s.name, s.grade, s.gpa FROM students20 s WHERE EXISTS (SELECT 1 FROM library_loans20 l WHERE l.student_id = s.id) AND s.gpa > (SELECT AVG(s2.gpa) FROM students20 s2 WHERE s2.grade = s.grade) AND (SELECT COUNT(*) FROM students20 s3 WHERE s3.grade = s.grade) > 1;",
+  "order_sensitive": false
+}

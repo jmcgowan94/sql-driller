@@ -1,0 +1,10 @@
+{
+  "id": "filtering_19",
+  "topic": "filtering",
+  "difficulty": 10,
+  "title": "Widget and Gadget buyers with no returns",
+  "prompt": "Return the customer_name (column: customer_name) of customers who purchased both 'Widget' and 'Gadget' (combine the two product subqueries with INTERSECT), excluding any customer who has ever filed a return, checked using a correlated NOT EXISTS subquery against the returns table.",
+  "setup_sql": "CREATE TABLE purchases (id INTEGER PRIMARY KEY, customer_id INTEGER, customer_name TEXT, product TEXT); INSERT INTO purchases VALUES (1,1,'Petra Voss','Widget'),(2,1,'Petra Voss','Gadget'),(3,2,'Quinn Ashby','Widget'),(4,2,'Quinn Ashby','Gadget'),(5,3,'Reid Solano','Widget'),(6,3,'Reid Solano','Sprocket'),(7,4,'Sana Kade','Gadget'),(8,4,'Sana Kade','Widget'); CREATE TABLE returns (id INTEGER PRIMARY KEY, customer_id INTEGER, item TEXT); INSERT INTO returns VALUES (1,2,'Gadget');",
+  "reference_sql": "SELECT customer_name FROM purchases p1 WHERE product = 'Widget' AND NOT EXISTS (SELECT 1 FROM returns r WHERE r.customer_id = p1.customer_id) INTERSECT SELECT customer_name FROM purchases p2 WHERE product = 'Gadget' AND NOT EXISTS (SELECT 1 FROM returns r WHERE r.customer_id = p2.customer_id);",
+  "order_sensitive": false
+}

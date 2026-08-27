@@ -1,0 +1,10 @@
+{
+  "id": "joins_11",
+  "topic": "joins",
+  "difficulty": 6,
+  "title": "Employee, manager, and grandmanager chain",
+  "prompt": "For each employee who has both a manager and a grandmanager (their manager's manager), return the employee's name (as employee_name), their manager's name (as manager_name), and their grandmanager's name (as grandmanager_name). Use the employees table joined to itself twice.",
+  "setup_sql": "CREATE TABLE emp11 (id INTEGER PRIMARY KEY, name TEXT, manager_id INTEGER); INSERT INTO emp11 VALUES (1,'Nancy',NULL),(2,'Mike',1),(3,'Mary',1),(4,'Eve',2),(5,'Ed',2),(6,'Fay',3);",
+  "reference_sql": "SELECT e.name AS employee_name, m.name AS manager_name, g.name AS grandmanager_name FROM emp11 e JOIN emp11 m ON e.manager_id = m.id JOIN emp11 g ON m.manager_id = g.id;",
+  "order_sensitive": false
+}

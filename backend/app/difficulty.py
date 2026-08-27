@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 
 from app.questions import Question, question_bank
 
-MAX_LEVEL = 5
+MAX_LEVEL = 10
 LEVEL_UP_STREAK = 2
 QUESTIONS_PER_TOPIC_PER_DAY = 1
 

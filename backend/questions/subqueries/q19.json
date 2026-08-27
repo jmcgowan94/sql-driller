@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_19",
+  "topic": "subqueries",
+  "difficulty": 10,
+  "title": "Overperforming and staffed-up employees",
+  "prompt": "Return the name, dept, and salary of every employee who satisfies ALL of the following: (1) is assigned to at least one project, (2) earns more than the average salary of their own department, and (3) belongs to a department with more than one employee. You must implement each condition as its own correlated subquery in the WHERE clause: an EXISTS subquery for (1), a scalar correlated subquery comparison for (2), and a correlated COUNT aggregate subquery for (3).",
+  "setup_sql": "CREATE TABLE employees19 (id INTEGER PRIMARY KEY, name TEXT, dept TEXT, salary REAL); INSERT INTO employees19 VALUES (1,'Alice','Engineering',95000),(2,'Bob','Engineering',70000),(3,'Carol','Engineering',60000),(4,'Dan','Sales',80000),(5,'Eve','Sales',50000),(6,'Frank','HR',55000); CREATE TABLE projects19 (id INTEGER PRIMARY KEY, emp_id INTEGER, hours REAL); INSERT INTO projects19 VALUES (1,1,40),(2,2,20),(3,4,15);",
+  "reference_sql": "SELECT e.name, e.dept, e.salary FROM employees19 e WHERE EXISTS (SELECT 1 FROM projects19 p WHERE p.emp_id = e.id) AND e.salary > (SELECT AVG(e2.salary) FROM employees19 e2 WHERE e2.dept = e.dept) AND (SELECT COUNT(*) FROM employees19 e3 WHERE e3.dept = e.dept) > 1;",
+  "order_sensitive": false
+}

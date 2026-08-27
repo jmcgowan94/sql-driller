@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_14",
+  "topic": "aggregation",
+  "difficulty": 7,
+  "title": "Departments with high bonus-to-salary ratio",
+  "prompt": "Using the staff14 table, return each department along with its total salary (column total_salary) and total bonus (column total_bonus), but only include departments where total bonus exceeds 10% of total salary.",
+  "setup_sql": "CREATE TABLE staff14 (id INTEGER PRIMARY KEY, name TEXT, department TEXT, salary INTEGER, bonus INTEGER); INSERT INTO staff14 VALUES (1,'A','Eng',100000,5000),(2,'B','Eng',100000,5000),(3,'C','Sales',60000,9000),(4,'D','Sales',60000,8000),(5,'E','HR',50000,2000),(6,'F','HR',50000,2500);",
+  "reference_sql": "SELECT department, SUM(salary) AS total_salary, SUM(bonus) AS total_bonus FROM staff14 GROUP BY department HAVING SUM(bonus) > 0.1 * SUM(salary);",
+  "order_sensitive": false
+}

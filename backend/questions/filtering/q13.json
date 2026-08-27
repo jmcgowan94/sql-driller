@@ -1,0 +1,10 @@
+{
+  "id": "filtering_13",
+  "topic": "filtering",
+  "difficulty": 7,
+  "title": "High and medium risk loans via CASE bucket",
+  "prompt": "Classify each loan's risk using: 'high' if days_late > 60, 'medium' if days_late is between 30 and 60 inclusive, otherwise 'low'. Return the borrower (column: borrower) for loans classified as 'high' or 'medium', using a CASE expression inside the WHERE clause.",
+  "setup_sql": "CREATE TABLE loans (id INTEGER PRIMARY KEY, borrower TEXT, balance REAL, days_late INTEGER); INSERT INTO loans VALUES (1,'Hank Osei',5000,75),(2,'Ida Flores',3000,20),(3,'Jae Kim',12000,45),(4,'Kara Lund',800,0),(5,'Liam Vance',9000,90),(6,'Mona Reyes',2000,35);",
+  "reference_sql": "SELECT borrower FROM loans WHERE CASE WHEN days_late > 60 THEN 'high' WHEN days_late >= 30 THEN 'medium' ELSE 'low' END IN ('high','medium');",
+  "order_sensitive": false
+}

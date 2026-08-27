@@ -1,0 +1,10 @@
+{
+  "id": "joins_20",
+  "topic": "joins",
+  "difficulty": 10,
+  "title": "Student credit ranking with A-grade breakdown",
+  "prompt": "For each student, return their name (as student_name), the total credits they have earned across all enrolled courses (as total_credits, sum of course credits), the number of courses in which they earned an 'A' grade (as a_count, using conditional aggregation, 0 if none), and their rank among all students by total_credits descending (as credit_rank, using RANK so tied totals share a rank). Join the students, enrollments, courses, and departments tables.",
+  "setup_sql": "CREATE TABLE stu20 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO stu20 VALUES (1,'Dan'),(2,'Eve'),(3,'Frank'); CREATE TABLE dept20 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO dept20 VALUES (1,'Computer Science'),(2,'Mathematics'); CREATE TABLE crs20 (id INTEGER PRIMARY KEY, title TEXT, department_id INTEGER, credits INTEGER); INSERT INTO crs20 VALUES (1,'Algorithms',1,4),(2,'Databases',1,3),(3,'Calculus',2,4),(4,'Statistics',2,3); CREATE TABLE enr20 (id INTEGER PRIMARY KEY, student_id INTEGER, course_id INTEGER, grade TEXT); INSERT INTO enr20 VALUES (1,1,1,'A'),(2,1,2,'B'),(3,2,3,'A'),(4,2,4,'A'),(5,3,1,'C'),(6,3,3,'B');",
+  "reference_sql": "SELECT stu20.name AS student_name, SUM(crs20.credits) AS total_credits, SUM(CASE WHEN enr20.grade = 'A' THEN 1 ELSE 0 END) AS a_count, RANK() OVER (ORDER BY SUM(crs20.credits) DESC) AS credit_rank FROM stu20 JOIN enr20 ON stu20.id = enr20.student_id JOIN crs20 ON enr20.course_id = crs20.id JOIN dept20 ON crs20.department_id = dept20.id GROUP BY stu20.id, stu20.name;",
+  "order_sensitive": false
+}

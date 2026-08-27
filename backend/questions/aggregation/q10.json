@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_10",
+  "topic": "aggregation",
+  "difficulty": 5,
+  "title": "Online vs in-store sales per store",
+  "prompt": "Return each store along with total online sales amount (column online_total) and total in-store sales amount (column in_store_total), as columns store, online_total, in_store_total.",
+  "setup_sql": "CREATE TABLE sales10 (id INTEGER PRIMARY KEY, store TEXT, channel TEXT, amount INTEGER); INSERT INTO sales10 VALUES (1,'Downtown','online',100),(2,'Downtown','in_store',200),(3,'Downtown','online',150),(4,'Uptown','in_store',300),(5,'Uptown','in_store',100),(6,'Uptown','online',50),(7,'Suburb','online',400);",
+  "reference_sql": "SELECT store, SUM(CASE WHEN channel = 'online' THEN amount ELSE 0 END) AS online_total, SUM(CASE WHEN channel = 'in_store' THEN amount ELSE 0 END) AS in_store_total FROM sales10 GROUP BY store;",
+  "order_sensitive": false
+}

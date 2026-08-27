@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_14",
+  "topic": "window_functions",
+  "difficulty": 7,
+  "title": "Department budget share",
+  "prompt": "Return department, budget, and pct_of_total — each department's budget expressed as a percentage (0-100) of the total budget across all departments, rounded to 2 decimal places. Compute the total using a window SUM() OVER () with no PARTITION BY.",
+  "setup_sql": "CREATE TABLE dept_budget (id INTEGER PRIMARY KEY, department TEXT, budget REAL); INSERT INTO dept_budget VALUES (1,'Engineering',500000.0),(2,'Sales',300000.0),(3,'Marketing',150000.0),(4,'HR',50000.0);",
+  "reference_sql": "SELECT department, budget, ROUND(100.0 * budget / SUM(budget) OVER (), 2) AS pct_of_total FROM dept_budget;",
+  "order_sensitive": false
+}

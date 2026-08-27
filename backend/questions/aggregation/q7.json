@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_7",
+  "topic": "aggregation",
+  "difficulty": 4,
+  "title": "Distinct products purchased per customer",
+  "prompt": "Return each customer along with the number of distinct products they purchased, as columns customer and distinct_products.",
+  "setup_sql": "CREATE TABLE purchases7 (id INTEGER PRIMARY KEY, customer TEXT, product TEXT); INSERT INTO purchases7 VALUES (1,'Alice','Widget'),(2,'Alice','Widget'),(3,'Alice','Gadget'),(4,'Bob','Gadget'),(5,'Bob','Gizmo'),(6,'Bob','Gizmo'),(7,'Bob','Widget'),(8,'Carol','Gizmo');",
+  "reference_sql": "SELECT customer, COUNT(DISTINCT product) AS distinct_products FROM purchases7 GROUP BY customer;",
+  "order_sensitive": false
+}

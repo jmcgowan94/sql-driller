@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_12",
+  "topic": "window_functions",
+  "difficulty": 6,
+  "title": "First and last salary in an employee's history",
+  "prompt": "Return employee, year, salary, first_salary (that employee's earliest recorded salary) and last_salary (that employee's most recent recorded salary), for every row, ordered by year within each employee. Use FIRST_VALUE()/LAST_VALUE() window functions with explicit frames (LAST_VALUE requires ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING to see the true last row, since the default frame only looks backward).",
+  "setup_sql": "CREATE TABLE salary_history (id INTEGER PRIMARY KEY, employee TEXT, year INTEGER, salary REAL); INSERT INTO salary_history VALUES (1,'Alice',2019,50000),(2,'Alice',2020,55000),(3,'Alice',2021,60000),(4,'Bob',2020,45000),(5,'Bob',2021,48000),(6,'Bob',2022,52000);",
+  "reference_sql": "SELECT employee, year, salary, FIRST_VALUE(salary) OVER (PARTITION BY employee ORDER BY year ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS first_salary, LAST_VALUE(salary) OVER (PARTITION BY employee ORDER BY year ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS last_salary FROM salary_history;",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_12",
+  "topic": "subqueries",
+  "difficulty": 6,
+  "title": "Customers above the repeat-buyer average",
+  "prompt": "Return the customer name of every customer whose total order amount (summed across all their orders) exceeds the average total order amount of customers who have placed more than one order. Solve this with a subquery nested two levels deep: a HAVING subquery whose comparison value comes from averaging a derived table that itself is filtered by an aggregate condition (COUNT(*) > 1).",
+  "setup_sql": "CREATE TABLE orders12 (id INTEGER PRIMARY KEY, customer TEXT, amount REAL); INSERT INTO orders12 VALUES (1,'Acme',100),(2,'Acme',150),(3,'Acme',50),(4,'Globex',300),(5,'Globex',10),(6,'Initech',20),(7,'Umbrella',500),(8,'Umbrella',600);",
+  "reference_sql": "SELECT customer FROM orders12 GROUP BY customer HAVING SUM(amount) > (SELECT AVG(total) FROM (SELECT SUM(amount) AS total FROM orders12 GROUP BY customer HAVING COUNT(*) > 1));",
+  "order_sensitive": false
+}

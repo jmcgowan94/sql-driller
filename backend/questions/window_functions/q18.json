@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_18",
+  "topic": "window_functions",
+  "difficulty": 9,
+  "title": "Salary rank and next-higher colleague's salary",
+  "prompt": "Return department, employee, salary, salary_rank (RANK() within department ordered by salary descending), and prev_salary (LAG() of salary within department, also ordered by salary descending — i.e. the salary of the next-higher-paid colleague in that department, NULL for the top earner). Use two separate window functions, both PARTITION BY department, in the same query.",
+  "setup_sql": "CREATE TABLE dept_salaries (id INTEGER PRIMARY KEY, department TEXT, employee TEXT, salary REAL); INSERT INTO dept_salaries VALUES (1,'Eng','Alice',90000),(2,'Eng','Bob',85000),(3,'Eng','Carol',95000),(4,'Sales','Dave',70000),(5,'Sales','Eve',75000);",
+  "reference_sql": "SELECT department, employee, salary, RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS salary_rank, LAG(salary) OVER (PARTITION BY department ORDER BY salary DESC) AS prev_salary FROM dept_salaries;",
+  "order_sensitive": false
+}

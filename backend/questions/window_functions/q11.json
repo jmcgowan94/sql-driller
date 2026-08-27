@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_11",
+  "topic": "window_functions",
+  "difficulty": 6,
+  "title": "First and last order amount per customer",
+  "prompt": "Return customer, order_date, amount, first_order_amount (that customer's earliest order amount), and last_order_amount (that customer's latest order amount), for every order row, ordered by order_date within each customer. Use FIRST_VALUE()/LAST_VALUE() window functions with explicit frames (LAST_VALUE requires ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING to see the true last row, since the default frame only looks backward).",
+  "setup_sql": "CREATE TABLE cust_orders (id INTEGER PRIMARY KEY, customer TEXT, order_date TEXT, amount REAL); INSERT INTO cust_orders VALUES (1,'Alice','2023-01-01',100.0),(2,'Alice','2023-02-01',150.0),(3,'Alice','2023-03-01',120.0),(4,'Bob','2023-01-15',200.0),(5,'Bob','2023-02-15',180.0);",
+  "reference_sql": "SELECT customer, order_date, amount, FIRST_VALUE(amount) OVER (PARTITION BY customer ORDER BY order_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS first_order_amount, LAST_VALUE(amount) OVER (PARTITION BY customer ORDER BY order_date ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING) AS last_order_amount FROM cust_orders;",
+  "order_sensitive": false
+}

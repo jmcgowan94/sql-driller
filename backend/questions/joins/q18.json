@@ -1,0 +1,10 @@
+{
+  "id": "joins_18",
+  "topic": "joins",
+  "difficulty": 9,
+  "title": "Suppliers with an out-of-stock product",
+  "prompt": "Return the supplier name (as supplier_name) and contract region (as region) for every supplier who supplies at least one product that is out of stock (stock = 0). Join the suppliers table to the contracts table, and use a correlated EXISTS subquery against the products table to check whether that supplier has an out-of-stock product.",
+  "setup_sql": "CREATE TABLE sup18 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO sup18 VALUES (1,'Acme'),(2,'Globex'),(3,'Initech'); CREATE TABLE contract18 (id INTEGER PRIMARY KEY, supplier_id INTEGER, region TEXT); INSERT INTO contract18 VALUES (1,1,'North'),(2,2,'South'),(3,3,'East'); CREATE TABLE prod18 (id INTEGER PRIMARY KEY, supplier_id INTEGER, name TEXT, stock INTEGER); INSERT INTO prod18 VALUES (1,1,'Widget',0),(2,1,'Gadget',5),(3,2,'Sprocket',10),(4,3,'Bolt',0);",
+  "reference_sql": "SELECT sup18.name AS supplier_name, contract18.region FROM sup18 JOIN contract18 ON sup18.id = contract18.supplier_id WHERE EXISTS (SELECT 1 FROM prod18 WHERE prod18.supplier_id = sup18.id AND prod18.stock = 0);",
+  "order_sensitive": false
+}

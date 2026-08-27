@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_15",
+  "topic": "subqueries",
+  "difficulty": 8,
+  "title": "Departments outpacing their juniors",
+  "prompt": "Return the dept and avg_salary (average salary across all employees) for every department whose average salary is greater than the average salary of that same department's 'Junior' level employees. You must express the Junior-level comparison value as a correlated subquery inside the HAVING clause, referencing the outer department being grouped.",
+  "setup_sql": "CREATE TABLE emp15 (id INTEGER PRIMARY KEY, name TEXT, dept TEXT, salary REAL, level TEXT); INSERT INTO emp15 VALUES (1,'Alice','Engineering',90000,'Senior'),(2,'Bob','Engineering',60000,'Junior'),(3,'Carol','Engineering',65000,'Junior'),(4,'Dan','Sales',50000,'Senior'),(5,'Eve','Sales',48000,'Junior'),(6,'Frank','Sales',60000,'Junior'),(7,'Grace','HR',55000,'Senior'),(8,'Heidi','HR',52000,'Junior');",
+  "reference_sql": "SELECT dept, AVG(salary) AS avg_salary FROM emp15 GROUP BY dept HAVING AVG(salary) > (SELECT AVG(e2.salary) FROM emp15 e2 WHERE e2.dept = emp15.dept AND e2.level = 'Junior');",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_16",
+  "topic": "aggregation",
+  "difficulty": 8,
+  "title": "Average monthly revenue",
+  "prompt": "Using the sales16 table (one row per daily sale, with a month column), first compute the total revenue for each month, then return the average of those monthly totals as a single column named avg_monthly_revenue.",
+  "setup_sql": "CREATE TABLE sales16 (id INTEGER PRIMARY KEY, month TEXT, revenue INTEGER); INSERT INTO sales16 VALUES (1,'Jan',100),(2,'Jan',150),(3,'Feb',200),(4,'Feb',100),(5,'Feb',100),(6,'Mar',500);",
+  "reference_sql": "SELECT AVG(month_total) AS avg_monthly_revenue FROM (SELECT month, SUM(revenue) AS month_total FROM sales16 GROUP BY month) t;",
+  "order_sensitive": false
+}

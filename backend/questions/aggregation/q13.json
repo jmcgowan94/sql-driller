@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_13",
+  "topic": "aggregation",
+  "difficulty": 7,
+  "title": "Products with a high refund rate",
+  "prompt": "Using the product_sales13 table (one row per sale, with a refunded column that is 1 if the sale was refunded and 0 otherwise), return each product along with its refund rate (the fraction of its sales that were refunded) as a column named refund_rate, but only include products where the refund rate is greater than 0.3.",
+  "setup_sql": "CREATE TABLE product_sales13 (id INTEGER PRIMARY KEY, product TEXT, amount INTEGER, refunded INTEGER); INSERT INTO product_sales13 VALUES (1,'Widget',10,0),(2,'Widget',10,0),(3,'Widget',10,1),(4,'Widget',10,1),(5,'Gadget',20,0),(6,'Gadget',20,0),(7,'Gadget',20,0),(8,'Gadget',20,1),(9,'Gizmo',5,1),(10,'Gizmo',5,1);",
+  "reference_sql": "SELECT product, CAST(SUM(refunded) AS FLOAT) / COUNT(*) AS refund_rate FROM product_sales13 GROUP BY product HAVING CAST(SUM(refunded) AS FLOAT) / COUNT(*) > 0.3;",
+  "order_sensitive": false
+}

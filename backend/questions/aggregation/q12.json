@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_12",
+  "topic": "aggregation",
+  "difficulty": 6,
+  "title": "Total hours logged per department",
+  "prompt": "Using the employees12 and timesheets12 tables, return each department along with the total hours logged by its employees, as columns department and total_hours.",
+  "setup_sql": "CREATE TABLE employees12 (id INTEGER PRIMARY KEY, name TEXT, department TEXT); CREATE TABLE timesheets12 (id INTEGER PRIMARY KEY, employee_id INTEGER, hours INTEGER); INSERT INTO employees12 VALUES (1,'Ann','Eng'),(2,'Ben','Eng'),(3,'Cid','Sales'); INSERT INTO timesheets12 VALUES (1,1,8),(2,1,7),(3,2,6),(4,3,5),(5,3,4),(6,2,8);",
+  "reference_sql": "SELECT e.department AS department, SUM(t.hours) AS total_hours FROM timesheets12 t JOIN employees12 e ON t.employee_id = e.id GROUP BY e.department;",
+  "order_sensitive": false
+}

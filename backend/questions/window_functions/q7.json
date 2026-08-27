@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_7",
+  "topic": "window_functions",
+  "difficulty": 4,
+  "title": "Next day's stock price",
+  "prompt": "Return ticker, price_date, price, and next_price (the following day's price for that ticker, using LEAD, ordered by price_date within each ticker). next_price should be NULL when there is no next row. Use a window function.",
+  "setup_sql": "CREATE TABLE stock_prices2 (id INTEGER PRIMARY KEY, ticker TEXT, price_date TEXT, price REAL); INSERT INTO stock_prices2 VALUES (1,'AAA','2023-01-01',10.0),(2,'AAA','2023-01-02',12.0),(3,'AAA','2023-01-03',11.0),(4,'BBB','2023-01-01',50.0),(5,'BBB','2023-01-02',48.0),(6,'BBB','2023-01-03',52.0);",
+  "reference_sql": "SELECT ticker, price_date, price, LEAD(price) OVER (PARTITION BY ticker ORDER BY price_date) AS next_price FROM stock_prices2;",
+  "order_sensitive": false
+}

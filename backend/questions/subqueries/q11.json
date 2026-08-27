@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_11",
+  "topic": "subqueries",
+  "difficulty": 6,
+  "title": "Departments above the average of averages",
+  "prompt": "Return the name of every employee whose department's average salary is higher than the overall average of all departments' average salaries (the average of the per-department averages, not the average of all employees). Solve this with a subquery nested two levels deep: a HAVING subquery whose comparison value itself comes from a derived-table subquery over per-department averages.",
+  "setup_sql": "CREATE TABLE emp11 (id INTEGER PRIMARY KEY, name TEXT, dept TEXT, salary REAL); INSERT INTO emp11 VALUES (1,'Alice','Engineering',90000),(2,'Bob','Engineering',95000),(3,'Carol','Sales',50000),(4,'Dan','Sales',55000),(5,'Eve','HR',60000),(6,'Frank','HR',65000),(7,'Grace','Marketing',40000),(8,'Heidi','Marketing',45000);",
+  "reference_sql": "SELECT name FROM emp11 WHERE dept IN (SELECT dept FROM emp11 GROUP BY dept HAVING AVG(salary) > (SELECT AVG(avg_sal) FROM (SELECT AVG(salary) AS avg_sal FROM emp11 GROUP BY dept)));",
+  "order_sensitive": false
+}

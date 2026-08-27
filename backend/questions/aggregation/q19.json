@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_19",
+  "topic": "aggregation",
+  "difficulty": 10,
+  "title": "Best-selling product per category",
+  "prompt": "Using the products19 and sales19 tables, find the single best-selling product (by total quantity sold) within each category. Return columns category, product, and total_qty. Assume no ties within a category.",
+  "setup_sql": "CREATE TABLE products19 (id INTEGER PRIMARY KEY, name TEXT, category TEXT); CREATE TABLE sales19 (id INTEGER PRIMARY KEY, product_id INTEGER, quantity INTEGER); INSERT INTO products19 VALUES (1,'Laptop','Electronics'),(2,'Phone','Electronics'),(3,'Desk','Furniture'),(4,'Chair','Furniture'),(5,'Lamp','Furniture'); INSERT INTO sales19 VALUES (1,1,10),(2,1,5),(3,2,8),(4,3,20),(5,4,15),(6,5,3);",
+  "reference_sql": "WITH product_totals AS (SELECT p.category AS category, p.name AS product, SUM(s.quantity) AS total_qty FROM sales19 s JOIN products19 p ON s.product_id = p.id GROUP BY p.category, p.name) SELECT pt.category, pt.product, pt.total_qty FROM product_totals pt WHERE pt.total_qty = (SELECT MAX(total_qty) FROM product_totals pt2 WHERE pt2.category = pt.category);",
+  "order_sensitive": false
+}

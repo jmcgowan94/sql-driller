@@ -1,0 +1,10 @@
+{
+  "id": "filtering_11",
+  "topic": "filtering",
+  "difficulty": 6,
+  "title": "Customers with an order over $200",
+  "prompt": "Return the name (column: name) of customers who have placed at least one order with amount greater than 200, using a correlated EXISTS subquery against the orders table.",
+  "setup_sql": "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO customers VALUES (1,'Ana Silva'),(2,'Bo Jensen'),(3,'Cleo Vance'),(4,'Deshawn Price'),(5,'Faye Nolan'); CREATE TABLE orders (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO orders VALUES (1,1,50),(2,1,75),(3,2,250),(4,3,10),(5,4,300),(6,4,15),(7,5,199);",
+  "reference_sql": "SELECT name FROM customers c WHERE EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.id AND o.amount > 200);",
+  "order_sensitive": false
+}

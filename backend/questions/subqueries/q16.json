@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_16",
+  "topic": "subqueries",
+  "difficulty": 8,
+  "title": "Regions tripling their Q1 pace",
+  "prompt": "Return the region and total_sales (sum of amount across all quarters) for every region whose total annual sales exceed three times that same region's own Q1 sales. You must express the region's Q1 sales as a correlated subquery inside the HAVING clause, referencing the outer region being grouped.",
+  "setup_sql": "CREATE TABLE sales16 (id INTEGER PRIMARY KEY, region TEXT, quarter TEXT, amount REAL); INSERT INTO sales16 VALUES (1,'North','Q1',100),(2,'North','Q2',150),(3,'North','Q3',200),(4,'North','Q4',250),(5,'South','Q1',300),(6,'South','Q2',50),(7,'South','Q3',40),(8,'South','Q4',60),(9,'East','Q1',20),(10,'East','Q2',400),(11,'East','Q3',300),(12,'East','Q4',300);",
+  "reference_sql": "SELECT region, SUM(amount) AS total_sales FROM sales16 GROUP BY region HAVING SUM(amount) > 3 * (SELECT SUM(s2.amount) FROM sales16 s2 WHERE s2.region = sales16.region AND s2.quarter = 'Q1');",
+  "order_sensitive": false
+}

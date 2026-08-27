@@ -1,0 +1,10 @@
+{
+  "id": "joins_9",
+  "topic": "joins",
+  "difficulty": 5,
+  "title": "Total spent per customer with zero for no orders",
+  "prompt": "Return every customer's name (as name) along with their total amount spent (as total_spent). Include customers who have never placed an order, showing 0 instead of NULL for their total_spent.",
+  "setup_sql": "CREATE TABLE cust9 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO cust9 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'),(4,'Dave'); CREATE TABLE ord9 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO ord9 VALUES (1,1,50.0),(2,1,30.0),(3,2,20.0);",
+  "reference_sql": "SELECT cust9.name, COALESCE(SUM(ord9.amount), 0) AS total_spent FROM cust9 LEFT JOIN ord9 ON cust9.id = ord9.customer_id GROUP BY cust9.id, cust9.name;",
+  "order_sensitive": false
+}

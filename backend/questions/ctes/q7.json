@@ -1,0 +1,10 @@
+{
+  "id": "ctes_7",
+  "topic": "ctes",
+  "difficulty": 4,
+  "title": "Salary rank within company",
+  "prompt": "Using a CTE named emp_salaries that selects each employee's name and salary from the employees7 table, write a query that uses this CTE together with a window function to return name, salary, and salary_rank — where salary_rank is computed with RANK() OVER (ORDER BY salary DESC), so the highest salary gets rank 1 (ties share the same rank).",
+  "setup_sql": "CREATE TABLE employees7 (id INTEGER PRIMARY KEY, name TEXT, salary INTEGER); INSERT INTO employees7 VALUES (1,'Ana',90000),(2,'Ben',90000),(3,'Cara',85000),(4,'Dev',80000),(5,'Ella',75000),(6,'Finn',70000);",
+  "reference_sql": "WITH emp_salaries AS (SELECT name, salary FROM employees7) SELECT name, salary, RANK() OVER (ORDER BY salary DESC) AS salary_rank FROM emp_salaries;",
+  "order_sensitive": false
+}

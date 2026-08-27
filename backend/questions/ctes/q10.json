@@ -1,0 +1,10 @@
+{
+  "id": "ctes_10",
+  "topic": "ctes",
+  "difficulty": 5,
+  "title": "Top selling products report",
+  "prompt": "Using a CTE named product_sales that computes the total quantity sold (as total_qty) per product_id from the order_items10 table, join it with the products10 table to return product_name and total_qty, but only for products where total_qty is greater than 15.",
+  "setup_sql": "CREATE TABLE products10 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO products10 VALUES (1,'Widget'),(2,'Gadget'),(3,'Gizmo'); CREATE TABLE order_items10 (id INTEGER PRIMARY KEY, product_id INTEGER, quantity INTEGER); INSERT INTO order_items10 VALUES (1,1,5),(2,1,8),(3,1,4),(4,2,10),(5,2,3),(6,3,2);",
+  "reference_sql": "WITH product_sales AS (SELECT product_id, SUM(quantity) AS total_qty FROM order_items10 GROUP BY product_id) SELECT p.name AS product_name, ps.total_qty FROM products10 p JOIN product_sales ps ON p.id = ps.product_id WHERE ps.total_qty > 15;",
+  "order_sensitive": false
+}

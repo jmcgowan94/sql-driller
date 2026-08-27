@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_20",
+  "topic": "aggregation",
+  "difficulty": 10,
+  "title": "Top salesperson per region",
+  "prompt": "Using the salespeople20 and sales_data20 tables, find the single top-performing salesperson (by total sales amount) within each region. Return columns region, salesperson, and total_sales. Assume no ties within a region.",
+  "setup_sql": "CREATE TABLE salespeople20 (id INTEGER PRIMARY KEY, name TEXT, region TEXT); CREATE TABLE sales_data20 (id INTEGER PRIMARY KEY, salesperson_id INTEGER, amount INTEGER); INSERT INTO salespeople20 VALUES (1,'Ann','West'),(2,'Ben','West'),(3,'Cid','East'),(4,'Dee','East'),(5,'Eve','East'); INSERT INTO sales_data20 VALUES (1,1,1000),(2,1,500),(3,2,700),(4,3,300),(5,4,900),(6,4,200),(7,5,600);",
+  "reference_sql": "WITH totals AS (SELECT sp.region AS region, sp.name AS salesperson, SUM(sd.amount) AS total_sales FROM sales_data20 sd JOIN salespeople20 sp ON sd.salesperson_id = sp.id GROUP BY sp.region, sp.name) SELECT t.region, t.salesperson, t.total_sales FROM totals t WHERE t.total_sales = (SELECT MAX(total_sales) FROM totals t2 WHERE t2.region = t.region);",
+  "order_sensitive": false
+}

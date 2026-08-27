@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_15",
+  "topic": "window_functions",
+  "difficulty": 8,
+  "title": "Top 3 distinct scores in a contest",
+  "prompt": "Return name, score, and dense_rnk for every contestant whose score is among the top 3 distinct scores, using DENSE_RANK() ordered by score descending, filtered to dense_rnk <= 3. Note there are ties in the scores, so this is not the same set of rows as filtering RANK() <= 3. Hint: compute DENSE_RANK() in a subquery, then filter in the outer query (SQLite has no QUALIFY).",
+  "setup_sql": "CREATE TABLE contest_scores (id INTEGER PRIMARY KEY, name TEXT, score INTEGER); INSERT INTO contest_scores VALUES (1,'Alice',95),(2,'Bob',95),(3,'Carol',90),(4,'Dave',90),(5,'Eve',90),(6,'Frank',85),(7,'Grace',80),(8,'Heidi',80);",
+  "reference_sql": "SELECT name, score, dense_rnk FROM (SELECT name, score, DENSE_RANK() OVER (ORDER BY score DESC) AS dense_rnk FROM contest_scores) WHERE dense_rnk <= 3;",
+  "order_sensitive": false
+}

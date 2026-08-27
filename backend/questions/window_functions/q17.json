@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_17",
+  "topic": "window_functions",
+  "difficulty": 9,
+  "title": "Sales rank and running total together",
+  "prompt": "Return rep, sale_date, amount, amount_rank (RANK() of amount descending across all reps), and running_total (cumulative SUM of amount ordered by sale_date), ordered by sale_date. Use two separate window functions in the same query.",
+  "setup_sql": "CREATE TABLE monthly_sales (id INTEGER PRIMARY KEY, rep TEXT, sale_date TEXT, amount REAL); INSERT INTO monthly_sales VALUES (1,'Alice','2023-01-05',300),(2,'Bob','2023-01-10',500),(3,'Carol','2023-01-15',200),(4,'Dave','2023-01-20',400),(5,'Eve','2023-01-25',600);",
+  "reference_sql": "SELECT rep, sale_date, amount, RANK() OVER (ORDER BY amount DESC) AS amount_rank, SUM(amount) OVER (ORDER BY sale_date) AS running_total FROM monthly_sales ORDER BY sale_date;",
+  "order_sensitive": true
+}

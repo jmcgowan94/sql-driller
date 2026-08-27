@@ -1,0 +1,10 @@
+{
+  "id": "ctes_11",
+  "topic": "ctes",
+  "difficulty": 6,
+  "title": "Compound savings growth",
+  "prompt": "A savings account starts with a balance of 1000.0 in year 0 and grows by 10% each year. Using a recursive CTE named growth(year, balance) where each recursive step computes balance as the previous balance multiplied by 1.10, compute the balance for years 0 through 5. Return year and balance.",
+  "setup_sql": "CREATE TABLE dummy11 (id INTEGER PRIMARY KEY); INSERT INTO dummy11 VALUES (1);",
+  "reference_sql": "WITH RECURSIVE growth(year, balance) AS (SELECT 0, 1000.0 UNION ALL SELECT year + 1, balance * 1.10 FROM growth WHERE year < 5) SELECT year, balance FROM growth;",
+  "order_sensitive": false
+}

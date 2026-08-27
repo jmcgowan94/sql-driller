@@ -1,0 +1,10 @@
+{
+  "id": "filtering_7",
+  "topic": "filtering",
+  "difficulty": 4,
+  "title": "Customers with orders over $500",
+  "prompt": "Return the name (column: name) of every customer who has placed at least one order with amount greater than 500, using an IN subquery against the orders table.",
+  "setup_sql": "CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO customers VALUES (1,'Alice Kim'),(2,'Ben Ortiz'),(3,'Carla Diaz'),(4,'Dan Frost'),(5,'Eva Chen'); CREATE TABLE orders (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO orders VALUES (1,1,650.00),(2,2,120.00),(3,3,80.00),(4,1,45.00),(5,4,999.50),(6,5,200.00),(7,3,510.00);",
+  "reference_sql": "SELECT name FROM customers WHERE id IN (SELECT customer_id FROM orders WHERE amount > 500);",
+  "order_sensitive": false
+}

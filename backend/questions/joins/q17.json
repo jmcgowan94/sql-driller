@@ -1,0 +1,10 @@
+{
+  "id": "joins_17",
+  "topic": "joins",
+  "difficulty": 9,
+  "title": "Customers whose orders contain a Laptop",
+  "prompt": "Return the customer name (as customer_name) and order date (as order_date) for every order that contains an item named 'Laptop'. Join the customers table to the orders table, and use a correlated EXISTS subquery against the order items table to check whether that specific order contains a 'Laptop' item.",
+  "setup_sql": "CREATE TABLE cust17 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO cust17 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE ord17 (id INTEGER PRIMARY KEY, customer_id INTEGER, order_date TEXT); INSERT INTO ord17 VALUES (1,1,'2024-01-01'),(2,2,'2024-01-05'),(3,3,'2024-01-10'),(4,1,'2024-02-01'); CREATE TABLE item17 (id INTEGER PRIMARY KEY, order_id INTEGER, product_name TEXT, price REAL); INSERT INTO item17 VALUES (1,1,'Laptop',1200.0),(2,2,'Mouse',20.0),(3,3,'Laptop',1300.0),(4,4,'Keyboard',50.0);",
+  "reference_sql": "SELECT cust17.name AS customer_name, ord17.order_date FROM cust17 JOIN ord17 ON cust17.id = ord17.customer_id WHERE EXISTS (SELECT 1 FROM item17 WHERE item17.order_id = ord17.id AND item17.product_name = 'Laptop');",
+  "order_sensitive": false
+}

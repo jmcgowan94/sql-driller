@@ -1,0 +1,10 @@
+{
+  "id": "filtering_20",
+  "topic": "filtering",
+  "difficulty": 10,
+  "title": "Active Engineering staff minus warned employees",
+  "prompt": "Return the name (column: name) of employees in the 'Engineering' department who currently have at least one project with status 'active' (checked via a correlated EXISTS subquery against the projects table), EXCEPT any employee who appears in the warnings table (checked using an IN subquery), combining the two result sets with the EXCEPT set operation.",
+  "setup_sql": "CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT, department TEXT); INSERT INTO employees VALUES (1,'Talia Brooks','Engineering'),(2,'Umar Faisal','Engineering'),(3,'Vika Orlova','Marketing'),(4,'Wade Nolan','Engineering'),(5,'Xena Pratt','Engineering'); CREATE TABLE projects (id INTEGER PRIMARY KEY, employee_id INTEGER, status TEXT); INSERT INTO projects VALUES (1,1,'active'),(2,2,'completed'),(3,4,'active'),(4,5,'active'),(5,3,'active'); CREATE TABLE warnings (employee_id INTEGER); INSERT INTO warnings VALUES (4);",
+  "reference_sql": "SELECT name FROM employees e WHERE e.department = 'Engineering' AND EXISTS (SELECT 1 FROM projects p WHERE p.employee_id = e.id AND p.status = 'active') EXCEPT SELECT name FROM employees WHERE id IN (SELECT employee_id FROM warnings);",
+  "order_sensitive": false
+}

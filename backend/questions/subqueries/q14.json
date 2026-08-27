@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_14",
+  "topic": "subqueries",
+  "difficulty": 7,
+  "title": "Student GPA joined by name",
+  "prompt": "Return each student's name and avg_gpa (their average grade_point across all course enrollments). You must compute avg_gpa using a derived table in the FROM clause (a subquery that GROUP BYs enrollments by student_id) and JOIN that derived table to the students table to bring in the student's name.",
+  "setup_sql": "CREATE TABLE students14 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO students14 VALUES (1,'Amy'),(2,'Ben'),(3,'Cara'); CREATE TABLE enrollments14 (id INTEGER PRIMARY KEY, student_id INTEGER, course TEXT, grade_point REAL); INSERT INTO enrollments14 VALUES (1,1,'Math',3.5),(2,1,'Bio',3.9),(3,2,'Math',3.0),(4,2,'Art',3.2),(5,3,'Bio',4.0);",
+  "reference_sql": "SELECT s.name, gpa.avg_gpa FROM students14 s JOIN (SELECT student_id, AVG(grade_point) AS avg_gpa FROM enrollments14 GROUP BY student_id) gpa ON gpa.student_id = s.id;",
+  "order_sensitive": false
+}

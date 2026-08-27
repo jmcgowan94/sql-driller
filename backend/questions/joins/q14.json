@@ -1,0 +1,10 @@
+{
+  "id": "joins_14",
+  "topic": "joins",
+  "difficulty": 7,
+  "title": "Full outer join of students and clubs",
+  "prompt": "Return a full outer join between students and clubs, matched on the club's student_id: for every student show their name and the name of the club they belong to (or NULL if they belong to none), and additionally include a row for every club that has no member, showing NULL for the student name. Columns: student_name, club_name. Your SQLite version does not support native FULL OUTER JOIN, so emulate it with a UNION of two LEFT JOINs.",
+  "setup_sql": "CREATE TABLE stu14 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO stu14 VALUES (1,'Dan'),(2,'Eve'),(3,'Frank'); CREATE TABLE club14 (id INTEGER PRIMARY KEY, name TEXT, student_id INTEGER); INSERT INTO club14 VALUES (1,'Chess Club',1),(2,'Art Club',2),(3,'Ghost Club',NULL);",
+  "reference_sql": "SELECT stu14.name AS student_name, club14.name AS club_name FROM stu14 LEFT JOIN club14 ON stu14.id = club14.student_id UNION SELECT stu14.name AS student_name, club14.name AS club_name FROM club14 LEFT JOIN stu14 ON club14.student_id = stu14.id;",
+  "order_sensitive": false
+}

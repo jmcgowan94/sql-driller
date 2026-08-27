@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_17",
+  "topic": "aggregation",
+  "difficulty": 9,
+  "title": "Customers spending above the average",
+  "prompt": "Using the orders17 table, return the customers (column customer) along with their total spend (column total_spend), but only for customers whose total spend is greater than the average total spend across all customers.",
+  "setup_sql": "CREATE TABLE orders17 (id INTEGER PRIMARY KEY, customer TEXT, amount INTEGER); INSERT INTO orders17 VALUES (1,'Alice',500),(2,'Alice',600),(3,'Bob',100),(4,'Bob',100),(5,'Carol',200),(6,'Dave',50),(7,'Dave',50);",
+  "reference_sql": "SELECT customer, SUM(amount) AS total_spend FROM orders17 GROUP BY customer HAVING SUM(amount) > (SELECT AVG(total) FROM (SELECT SUM(amount) AS total FROM orders17 GROUP BY customer) sub);",
+  "order_sensitive": false
+}

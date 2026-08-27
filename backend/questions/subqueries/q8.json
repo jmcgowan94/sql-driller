@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_8",
+  "topic": "subqueries",
+  "difficulty": 4,
+  "title": "Score alongside classroom average",
+  "prompt": "Return every student's name, classroom, and score, plus a fourth column classroom_avg_score showing the average score within that student's own classroom. You must compute classroom_avg_score using a correlated scalar subquery placed in the SELECT list (not a JOIN or window function).",
+  "setup_sql": "CREATE TABLE student8 (id INTEGER PRIMARY KEY, name TEXT, classroom TEXT, score REAL); INSERT INTO student8 VALUES (1,'Amy','A',88),(2,'Ben','A',92),(3,'Chris','A',75),(4,'Dana','B',60),(5,'Ella','B',70),(6,'Finn','B',80);",
+  "reference_sql": "SELECT name, classroom, score, (SELECT AVG(s2.score) FROM student8 s2 WHERE s2.classroom = s1.classroom) AS classroom_avg_score FROM student8 s1;",
+  "order_sensitive": false
+}

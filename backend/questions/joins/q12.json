@@ -1,0 +1,10 @@
+{
+  "id": "joins_12",
+  "topic": "joins",
+  "difficulty": 6,
+  "title": "Category, parent, and grandparent chain",
+  "prompt": "For each category that has both a parent category and a grandparent category, return the category name (as category_name), its parent's name (as parent_name), and its grandparent's name (as grandparent_name). Use the categories table joined to itself twice.",
+  "setup_sql": "CREATE TABLE cat12 (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER); INSERT INTO cat12 VALUES (1,'All',NULL),(2,'Electronics',1),(3,'Furniture',1),(4,'Laptops',2),(5,'Phones',2),(6,'Chairs',3);",
+  "reference_sql": "SELECT c.name AS category_name, p.name AS parent_name, g.name AS grandparent_name FROM cat12 c JOIN cat12 p ON c.parent_id = p.id JOIN cat12 g ON p.parent_id = g.id;",
+  "order_sensitive": false
+}

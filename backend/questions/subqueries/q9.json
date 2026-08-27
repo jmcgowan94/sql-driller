@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_9",
+  "topic": "subqueries",
+  "difficulty": 5,
+  "title": "Earning more than all of Sales",
+  "prompt": "Return the name of every employee whose salary is greater than every salary in the 'Sales' department (i.e., strictly greater than the maximum Sales salary). Note: SQLite does not support the ALL keyword for quantified subqueries, so you must express this ALL-style comparison using the standard NOT EXISTS emulation: a row qualifies only if there is NOT EXISTS any Sales-department salary greater than or equal to it. Do not simply compute MAX() directly in a plain scalar comparison.",
+  "setup_sql": "CREATE TABLE emp9 (id INTEGER PRIMARY KEY, name TEXT, dept TEXT, salary REAL); INSERT INTO emp9 VALUES (1,'Alice','Engineering',90000),(2,'Bob','Engineering',60000),(3,'Carol','Sales',55000),(4,'Dan','Sales',58000),(5,'Eve','Sales',62000),(6,'Frank','HR',70000);",
+  "reference_sql": "SELECT name FROM emp9 e1 WHERE NOT EXISTS (SELECT 1 FROM emp9 s WHERE s.dept = 'Sales' AND s.salary >= e1.salary);",
+  "order_sensitive": false
+}

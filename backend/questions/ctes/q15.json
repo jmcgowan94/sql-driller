@@ -1,0 +1,10 @@
+{
+  "id": "ctes_15",
+  "topic": "ctes",
+  "difficulty": 8,
+  "title": "Category hierarchy within 2 levels",
+  "prompt": "Using a recursive CTE named subcats(id, name, depth) that starts at the 'Electronics' category (id 1, depth 0) and traverses down through the categories15 table (parent_id references the parent category's id), incrementing depth by 1 at each recursive step, return the name and depth of all descendant categories of Electronics (not including Electronics itself) whose depth is less than or equal to 2.",
+  "setup_sql": "CREATE TABLE categories15 (id INTEGER PRIMARY KEY, name TEXT, parent_id INTEGER); INSERT INTO categories15 VALUES (1,'Electronics',NULL),(2,'Computers',1),(3,'Phones',1),(4,'Laptops',2),(5,'Desktops',2),(6,'Smartphones',3),(7,'Gaming Laptops',4);",
+  "reference_sql": "WITH RECURSIVE subcats(id, name, depth) AS (SELECT id, name, 0 FROM categories15 WHERE id = 1 UNION ALL SELECT c.id, c.name, s.depth + 1 FROM categories15 c JOIN subcats s ON c.parent_id = s.id) SELECT name, depth FROM subcats WHERE depth > 0 AND depth <= 2;",
+  "order_sensitive": false
+}

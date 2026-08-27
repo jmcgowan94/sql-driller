@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_10",
+  "topic": "subqueries",
+  "difficulty": 5,
+  "title": "Pricier than some Nguyen listing",
+  "prompt": "Return the address of every real-estate listing priced higher than at least one listing handled by agent 'Nguyen' (i.e., higher than the cheapest Nguyen-listed property). Note: SQLite does not support the ANY/SOME keywords for quantified subqueries, so you must express this ANY-style comparison using the standard EXISTS emulation: a row qualifies if there EXISTS some Nguyen-listed price that it is greater than. Do not simply compute MIN() directly in a plain scalar comparison.",
+  "setup_sql": "CREATE TABLE listing10 (id INTEGER PRIMARY KEY, address TEXT, agent TEXT, price REAL); INSERT INTO listing10 VALUES (1,'12 Elm St','Nguyen',250000),(2,'5 Oak Ave','Nguyen',300000),(3,'9 Pine Rd','Nguyen',180000),(4,'22 Maple Dr','Diaz',260000),(5,'7 Birch Ln','Diaz',150000),(6,'3 Cedar Ct','Diaz',400000);",
+  "reference_sql": "SELECT address FROM listing10 e1 WHERE EXISTS (SELECT 1 FROM listing10 n WHERE n.agent = 'Nguyen' AND e1.price > n.price);",
+  "order_sensitive": false
+}

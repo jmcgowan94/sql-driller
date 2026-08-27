@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_15",
+  "topic": "aggregation",
+  "difficulty": 8,
+  "title": "Average total order value across customers",
+  "prompt": "Using the orders15 table, first compute the total order amount for each customer, then return the average of those per-customer totals as a single column named avg_customer_total.",
+  "setup_sql": "CREATE TABLE orders15 (id INTEGER PRIMARY KEY, customer TEXT, amount INTEGER); INSERT INTO orders15 VALUES (1,'Alice',100),(2,'Alice',200),(3,'Bob',50),(4,'Bob',50),(5,'Bob',100),(6,'Carol',300);",
+  "reference_sql": "SELECT AVG(customer_total) AS avg_customer_total FROM (SELECT customer, SUM(amount) AS customer_total FROM orders15 GROUP BY customer) t;",
+  "order_sensitive": false
+}

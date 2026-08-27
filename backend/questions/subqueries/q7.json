@@ -1,0 +1,10 @@
+{
+  "id": "subqueries_7",
+  "topic": "subqueries",
+  "difficulty": 4,
+  "title": "Salary alongside department max",
+  "prompt": "Return every employee's name, dept, and salary, plus a fourth column dept_max_salary showing the maximum salary within that employee's own department. You must compute dept_max_salary using a correlated scalar subquery placed in the SELECT list (not a JOIN or window function).",
+  "setup_sql": "CREATE TABLE emp7 (id INTEGER PRIMARY KEY, name TEXT, dept TEXT, salary REAL); INSERT INTO emp7 VALUES (1,'Alice','Engineering',90000),(2,'Bob','Engineering',75000),(3,'Carol','Engineering',95000),(4,'Dan','Sales',60000),(5,'Eve','Sales',65000),(6,'Frank','HR',50000);",
+  "reference_sql": "SELECT name, dept, salary, (SELECT MAX(e2.salary) FROM emp7 e2 WHERE e2.dept = e1.dept) AS dept_max_salary FROM emp7 e1;",
+  "order_sensitive": false
+}

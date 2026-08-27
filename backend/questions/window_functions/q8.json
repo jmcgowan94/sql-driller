@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_8",
+  "topic": "window_functions",
+  "difficulty": 4,
+  "title": "Next finisher's time in each heat",
+  "prompt": "Return heat, runner, finish_time, and next_time — the finish_time of the next-slower runner in the same heat, ordered by finish_time ascending, using LEAD(). next_time should be NULL for the last (slowest) runner in each heat.",
+  "setup_sql": "CREATE TABLE heat_results (id INTEGER PRIMARY KEY, heat TEXT, runner TEXT, finish_time REAL); INSERT INTO heat_results VALUES (1,'Heat1','Alice',11.2),(2,'Heat1','Bob',11.5),(3,'Heat1','Carol',12.0),(4,'Heat2','Dave',10.8),(5,'Heat2','Eve',11.0),(6,'Heat2','Frank',11.9);",
+  "reference_sql": "SELECT heat, runner, finish_time, LEAD(finish_time) OVER (PARTITION BY heat ORDER BY finish_time) AS next_time FROM heat_results;",
+  "order_sensitive": false
+}

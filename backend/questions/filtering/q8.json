@@ -1,0 +1,10 @@
+{
+  "id": "filtering_8",
+  "topic": "filtering",
+  "difficulty": 4,
+  "title": "Employees excluded from the layoff list",
+  "prompt": "Return the name (column: name) of every employee whose id does NOT appear in the layoffs table, using a NOT IN subquery.",
+  "setup_sql": "CREATE TABLE employees (id INTEGER PRIMARY KEY, name TEXT, department TEXT); INSERT INTO employees VALUES (1,'Grace Lee','Sales'),(2,'Marcus Bell','Engineering'),(3,'Nina Torres','Sales'),(4,'Omar Reyes','Support'),(5,'Priya Nair','Engineering'),(6,'Quinn Adams','Support'); CREATE TABLE layoffs (employee_id INTEGER); INSERT INTO layoffs VALUES (1),(4);",
+  "reference_sql": "SELECT name FROM employees WHERE id NOT IN (SELECT employee_id FROM layoffs);",
+  "order_sensitive": false
+}

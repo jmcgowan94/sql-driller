@@ -1,0 +1,10 @@
+{
+  "id": "joins_13",
+  "topic": "joins",
+  "difficulty": 7,
+  "title": "Full outer join of employees and projects",
+  "prompt": "Return a full outer join between employees and projects, matched on the project's employee_id: for every employee show their name and the title of the project they're assigned to (or NULL if unassigned), and additionally include a row for every project that has no assigned employee, showing NULL for the employee name. Columns: employee_name, project_title. Your SQLite version does not support native FULL OUTER JOIN, so emulate it with a UNION of two LEFT JOINs.",
+  "setup_sql": "CREATE TABLE emp13 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO emp13 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE proj13 (id INTEGER PRIMARY KEY, title TEXT, employee_id INTEGER); INSERT INTO proj13 VALUES (1,'Website',1),(2,'App',2),(3,'Orphan Project',NULL);",
+  "reference_sql": "SELECT emp13.name AS employee_name, proj13.title AS project_title FROM emp13 LEFT JOIN proj13 ON emp13.id = proj13.employee_id UNION SELECT emp13.name AS employee_name, proj13.title AS project_title FROM proj13 LEFT JOIN emp13 ON proj13.employee_id = emp13.id;",
+  "order_sensitive": false
+}

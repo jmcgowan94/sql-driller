@@ -1,0 +1,10 @@
+{
+  "id": "ctes_13",
+  "topic": "ctes",
+  "difficulty": 7,
+  "title": "Customer 360 report",
+  "prompt": "Using three separate CTEs in one WITH clause — order_counts (customer_id, order_count = count of rows in orders13 per customer), total_spent (customer_id, total_amount = sum of amount in orders13 per customer), and avg_rating (customer_id, avg_rating = average rating in reviews13 per customer) — combine all three by joining them together with the customers13 table in your final SELECT. Return name, order_count, total_amount, and avg_rating for each customer.",
+  "setup_sql": "CREATE TABLE customers13 (id INTEGER PRIMARY KEY, name TEXT); INSERT INTO customers13 VALUES (1,'Alice'),(2,'Bob'),(3,'Carol'); CREATE TABLE orders13 (id INTEGER PRIMARY KEY, customer_id INTEGER, amount REAL); INSERT INTO orders13 VALUES (1,1,50.0),(2,1,30.0),(3,2,200.0),(4,3,10.0),(5,3,20.0),(6,3,15.0); CREATE TABLE reviews13 (id INTEGER PRIMARY KEY, customer_id INTEGER, rating INTEGER); INSERT INTO reviews13 VALUES (1,1,5),(2,1,3),(3,2,4),(4,3,2),(5,3,4);",
+  "reference_sql": "WITH order_counts AS (SELECT customer_id, COUNT(*) AS order_count FROM orders13 GROUP BY customer_id), total_spent AS (SELECT customer_id, SUM(amount) AS total_amount FROM orders13 GROUP BY customer_id), avg_rating AS (SELECT customer_id, AVG(rating) AS avg_rating FROM reviews13 GROUP BY customer_id) SELECT c.name, oc.order_count, ts.total_amount, ar.avg_rating FROM customers13 c JOIN order_counts oc ON c.id = oc.customer_id JOIN total_spent ts ON c.id = ts.customer_id JOIN avg_rating ar ON c.id = ar.customer_id;",
+  "order_sensitive": false
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ctes_12",
+  "topic": "ctes",
+  "difficulty": 6,
+  "title": "Assembly line yield",
+  "prompt": "A factory starts a production run with 1000.0 units at stage 0. Each subsequent stage retains only 90% of the units from the previous stage due to quality loss. Using a recursive CTE named stages(stage, units_remaining) where each recursive step computes units_remaining as the previous stage's units_remaining multiplied by 0.9, compute units_remaining for stages 0 through 4. Return stage and units_remaining.",
+  "setup_sql": "CREATE TABLE dummy12 (id INTEGER PRIMARY KEY); INSERT INTO dummy12 VALUES (1);",
+  "reference_sql": "WITH RECURSIVE stages(stage, units_remaining) AS (SELECT 0, 1000.0 UNION ALL SELECT stage + 1, units_remaining * 0.9 FROM stages WHERE stage < 4) SELECT stage, units_remaining FROM stages;",
+  "order_sensitive": false
+}

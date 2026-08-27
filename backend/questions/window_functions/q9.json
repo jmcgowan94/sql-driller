@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_9",
+  "topic": "window_functions",
+  "difficulty": 5,
+  "title": "Quartiles by exam score",
+  "prompt": "Return student, score, and quartile — split all students into 4 roughly equal-sized groups by score descending using NTILE(4), where quartile 1 contains the highest scorers. Use a window function.",
+  "setup_sql": "CREATE TABLE exam_scores (id INTEGER PRIMARY KEY, student TEXT, score INTEGER); INSERT INTO exam_scores VALUES (1,'Alice',95),(2,'Bob',88),(3,'Carol',76),(4,'Dave',65),(5,'Eve',59),(6,'Frank',82),(7,'Grace',90),(8,'Heidi',70);",
+  "reference_sql": "SELECT student, score, NTILE(4) OVER (ORDER BY score DESC) AS quartile FROM exam_scores;",
+  "order_sensitive": false
+}

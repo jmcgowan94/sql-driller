@@ -31,7 +31,7 @@ Then open http://localhost:8000
 - Write a SQL query in the editor and click **Run & Check** — it runs against a real
   in-memory SQLite database seeded for that question and compares your result to the
   expected answer.
-- Get 2 correct in a row on a topic and it levels up (max level 5) — future days pull
+- Get 2 correct in a row on a topic and it levels up (max level 10) — future days pull
   harder questions for that topic. A wrong answer resets the streak-to-level-up but never
   drops your level, so mistakes don't set you back, they just pause progress until you
   get it right.

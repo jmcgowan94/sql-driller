@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_20",
+  "topic": "window_functions",
+  "difficulty": 10,
+  "title": "Quarter-over-quarter hiring growth by department",
+  "prompt": "Using a CTE that first aggregates total new hires (SUM(headcount)) by department and quarter (quarter formatted as 'YYYY-QN', e.g. '2023-Q1', derived from hire_date), return department, quarter, quarterly_hires, and growth_pct — the percentage change in quarterly_hires versus the previous quarter for that department, computed with LAG() PARTITION BY department ORDER BY quarter, rounded to 2 decimal places. growth_pct should be NULL for each department's first quarter. Order the result by department, then quarter.",
+  "setup_sql": "CREATE TABLE new_hires (id INTEGER PRIMARY KEY, department TEXT, hire_date TEXT, headcount INTEGER); INSERT INTO new_hires VALUES (1,'Eng','2023-01-10',3),(2,'Eng','2023-02-15',2),(3,'Eng','2023-04-05',5),(4,'Eng','2023-05-20',1),(5,'Eng','2023-07-10',4),(6,'Sales','2023-01-20',2),(7,'Sales','2023-03-15',3),(8,'Sales','2023-04-10',1),(9,'Sales','2023-07-01',6);",
+  "reference_sql": "WITH quarterly AS (SELECT department, strftime('%Y', hire_date) || '-Q' || ((CAST(strftime('%m', hire_date) AS INTEGER) - 1) / 3 + 1) AS quarter, SUM(headcount) AS quarterly_hires FROM new_hires GROUP BY department, quarter) SELECT department, quarter, quarterly_hires, ROUND(100.0 * (quarterly_hires - LAG(quarterly_hires) OVER (PARTITION BY department ORDER BY quarter)) / LAG(quarterly_hires) OVER (PARTITION BY department ORDER BY quarter), 2) AS growth_pct FROM quarterly ORDER BY department, quarter;",
+  "order_sensitive": true
+}

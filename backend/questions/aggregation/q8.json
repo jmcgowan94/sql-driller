@@ -1,0 +1,10 @@
+{
+  "id": "aggregation_8",
+  "topic": "aggregation",
+  "difficulty": 4,
+  "title": "Distinct visitors per page",
+  "prompt": "Return each page along with the number of distinct visitors who viewed it, as columns page and distinct_visitors.",
+  "setup_sql": "CREATE TABLE page_views8 (id INTEGER PRIMARY KEY, page TEXT, visitor TEXT); INSERT INTO page_views8 VALUES (1,'/home','u1'),(2,'/home','u1'),(3,'/home','u2'),(4,'/pricing','u2'),(5,'/pricing','u3'),(6,'/pricing','u3'),(7,'/pricing','u3'),(8,'/about','u1'),(9,'/about','u4');",
+  "reference_sql": "SELECT page, COUNT(DISTINCT visitor) AS distinct_visitors FROM page_views8 GROUP BY page;",
+  "order_sensitive": false
+}

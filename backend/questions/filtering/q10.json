@@ -1,0 +1,10 @@
+{
+  "id": "filtering_10",
+  "topic": "filtering",
+  "difficulty": 5,
+  "title": "Engineering titles minus managers and contractors",
+  "prompt": "Return the name (column: name) of staff whose title contains 'Engineer' or contains 'Developer', excluding anyone whose title contains 'Manager', and excluding anyone whose email ends with '@contractor.com'.",
+  "setup_sql": "CREATE TABLE staff (id INTEGER PRIMARY KEY, name TEXT, title TEXT, email TEXT); INSERT INTO staff VALUES (1,'Tom Reyes','Software Engineer','tom@company.com'),(2,'Julia Park','Engineering Manager','julia@company.com'),(3,'Sam Osei','Senior Developer','sam@contractor.com'),(4,'Nora Kim','Frontend Developer','nora@company.com'),(5,'Leo Grant','QA Engineer','leo@company.com'),(6,'Ivy Chan','Product Manager','ivy@company.com'),(7,'Max Fields','Backend Engineer','max@contractor.com');",
+  "reference_sql": "SELECT name FROM staff WHERE (title LIKE '%Engineer%' OR title LIKE '%Developer%') AND title NOT LIKE '%Manager%' AND email NOT LIKE '%@contractor.com';",
+  "order_sensitive": false
+}

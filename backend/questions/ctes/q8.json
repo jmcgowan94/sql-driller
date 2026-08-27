@@ -1,0 +1,10 @@
+{
+  "id": "ctes_8",
+  "topic": "ctes",
+  "difficulty": 4,
+  "title": "Running total of monthly sales",
+  "prompt": "Using a CTE named monthly_sales that selects month and revenue from the sales8 table, write a query that uses this CTE together with a window function to return month, revenue, and running_total — where running_total is the cumulative sum of revenue ordered by month, computed with SUM(revenue) OVER (ORDER BY month).",
+  "setup_sql": "CREATE TABLE sales8 (id INTEGER PRIMARY KEY, month TEXT, revenue INTEGER); INSERT INTO sales8 VALUES (1,'2024-01',1000),(2,'2024-02',1500),(3,'2024-03',1200),(4,'2024-04',1800),(5,'2024-05',900),(6,'2024-06',2000);",
+  "reference_sql": "WITH monthly_sales AS (SELECT month, revenue FROM sales8) SELECT month, revenue, SUM(revenue) OVER (ORDER BY month) AS running_total FROM monthly_sales;",
+  "order_sensitive": false
+}

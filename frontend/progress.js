@@ -1,4 +1,4 @@
-const MAX_LEVEL = 5;
+const MAX_LEVEL = 10;
 
 function el(tag, opts = {}, children = []) {
   const node = document.createElement(tag);

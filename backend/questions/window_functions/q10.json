@@ -1,0 +1,10 @@
+{
+  "id": "window_functions_10",
+  "topic": "window_functions",
+  "difficulty": 5,
+  "title": "Price terciles for products",
+  "prompt": "Return product, price, and price_tier — split all products into 3 roughly equal-sized groups by price ascending using NTILE(3), where tier 1 contains the cheapest products. Use a window function.",
+  "setup_sql": "CREATE TABLE products_price (id INTEGER PRIMARY KEY, product TEXT, price REAL); INSERT INTO products_price VALUES (1,'Widget',9.99),(2,'Gadget',19.99),(3,'Gizmo',5.49),(4,'Doohickey',29.99),(5,'Thingamajig',14.99),(6,'Contraption',3.99),(7,'Apparatus',24.99),(8,'Mechanism',12.49),(9,'Device',7.99);",
+  "reference_sql": "SELECT product, price, NTILE(3) OVER (ORDER BY price ASC) AS price_tier FROM products_price;",
+  "order_sensitive": false
+}
