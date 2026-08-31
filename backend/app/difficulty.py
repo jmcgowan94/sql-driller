@@ -29,8 +29,21 @@ def record_attempt_and_update_level(
 ) -> tuple[int, int, bool]:
     """Records the attempt and updates topic level/streak.
 
+    A question only grants level/streak credit once per calendar day —
+    once it's been answered correctly today, further submissions (right
+    or wrong) are still logged but no longer mutate level/streak.
+
     Returns (new_level, new_streak, leveled_up).
     """
+    already_credited_today = (
+        conn.execute(
+            "SELECT 1 FROM attempts WHERE question_id = ? AND correct = 1 "
+            "AND date(timestamp) = date('now') LIMIT 1",
+            (question.id,),
+        ).fetchone()
+        is not None
+    )
+
     conn.execute(
         "INSERT INTO attempts (question_id, topic, difficulty, correct, submitted_sql) "
         "VALUES (?, ?, ?, ?, ?)",
@@ -39,19 +52,20 @@ def record_attempt_and_update_level(
 
     level, streak = get_topic_level(conn, question.topic)
     leveled_up = False
-    if correct:
-        streak += 1
-        if streak >= LEVEL_UP_STREAK and level < MAX_LEVEL:
-            level += 1
+    if not already_credited_today:
+        if correct:
+            streak += 1
+            if streak >= LEVEL_UP_STREAK and level < MAX_LEVEL:
+                level += 1
+                streak = 0
+                leveled_up = True
+        else:
             streak = 0
-            leveled_up = True
-    else:
-        streak = 0
 
-    conn.execute(
-        "UPDATE topic_level SET level = ?, streak_correct = ? WHERE topic = ?",
-        (level, streak, question.topic),
-    )
+        conn.execute(
+            "UPDATE topic_level SET level = ?, streak_correct = ? WHERE topic = ?",
+            (level, streak, question.topic),
+        )
     conn.commit()
     return level, streak, leveled_up
 
