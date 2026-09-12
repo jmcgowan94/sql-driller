@@ -73,13 +73,12 @@ def submit_answer(question_id: str, body: SubmitRequest):
         conn.close()
 
     expected = None
-    reference_sql = None
     if not result.correct:
         expected = QueryResult(
             columns=question.expected_columns,
             rows=[list(r) for r in question.expected_rows],
         )
-        reference_sql = question.reference_sql_display
+    reference_sql = question.reference_sql_display
 
     return SubmitResponse(
         correct=result.correct,

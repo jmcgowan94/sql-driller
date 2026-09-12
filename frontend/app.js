@@ -162,9 +162,11 @@ function renderQuestionCard(question) {
         resultArea.appendChild(renderDataTable(data.expected.columns, data.expected.rows));
       }
 
-      if (!data.correct) {
+      lastReferenceSql = data.reference_sql;
+      if (data.correct) {
+        showAnswerBtn.style.display = "inline-block";
+      } else {
         incorrectAttempts += 1;
-        lastReferenceSql = data.reference_sql;
         if (incorrectAttempts >= 2) {
           showAnswerBtn.style.display = "inline-block";
         }
