@@ -116,10 +116,16 @@ function renderQuestionCard(question) {
   let lastReferenceSql = null;
 
   showAnswerBtn.addEventListener("click", () => {
-    answerArea.innerHTML = "";
-    answerArea.appendChild(el("h4", { text: "Correct query" }));
-    answerArea.appendChild(el("code", { className: "answer-box", text: lastReferenceSql }));
-    showAnswerBtn.style.display = "none";
+    const isShowing = showAnswerBtn.textContent === "Hide Answer";
+    if (isShowing) {
+      answerArea.innerHTML = "";
+      showAnswerBtn.textContent = "Show Answer";
+    } else {
+      answerArea.innerHTML = "";
+      answerArea.appendChild(el("h4", { text: "Correct query" }));
+      answerArea.appendChild(el("code", { className: "answer-box", text: lastReferenceSql }));
+      showAnswerBtn.textContent = "Hide Answer";
+    }
   });
 
   runBtn.addEventListener("click", async () => {
