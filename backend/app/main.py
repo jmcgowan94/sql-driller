@@ -65,11 +65,13 @@ def submit_answer(question_id: str, body: SubmitRequest):
         conn.close()
 
     expected = None
+    reference_sql = None
     if not result.correct:
         expected = QueryResult(
             columns=question.expected_columns,
             rows=[list(r) for r in question.expected_rows],
         )
+        reference_sql = question.reference_sql
 
     return SubmitResponse(
         correct=result.correct,
@@ -78,6 +80,7 @@ def submit_answer(question_id: str, body: SubmitRequest):
         if result.error is None
         else None,
         expected=expected,
+        reference_sql=reference_sql,
         topic_level=level,
         topic_streak=streak,
         leveled_up=leveled_up,

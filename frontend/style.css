@@ -219,6 +219,32 @@ button.run-btn:disabled {
   cursor: default;
 }
 
+button.show-answer-btn {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  padding: 8px 17px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button.show-answer-btn:hover {
+  background: rgba(91, 140, 255, 0.1);
+}
+
+.answer-box {
+  display: block;
+  background: var(--code-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 13px;
+  white-space: pre-wrap;
+  color: var(--text);
+}
+
 .feedback {
   font-size: 14px;
   font-weight: 600;

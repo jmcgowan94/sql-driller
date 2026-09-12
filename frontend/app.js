@@ -101,13 +101,26 @@ function renderQuestionCard(question) {
   });
   const runBtn = el("button", { className: "run-btn", text: "Run & Check" });
   const feedback = el("span", { className: "feedback" });
-  const actions = el("div", { className: "actions" }, [runBtn, feedback]);
+  const showAnswerBtn = el("button", { className: "show-answer-btn", text: "Show Answer" });
+  showAnswerBtn.style.display = "none";
+  const actions = el("div", { className: "actions" }, [runBtn, feedback, showAnswerBtn]);
 
   const resultArea = el("div");
+  const answerArea = el("div");
 
-  const cardRight = el("div", { className: "card-right" }, [textarea, actions, resultArea]);
+  const cardRight = el("div", { className: "card-right" }, [textarea, actions, resultArea, answerArea]);
 
   card.appendChild(el("div", { className: "card-body" }, [cardLeft, cardRight]));
+
+  let incorrectAttempts = 0;
+  let lastReferenceSql = null;
+
+  showAnswerBtn.addEventListener("click", () => {
+    answerArea.innerHTML = "";
+    answerArea.appendChild(el("h4", { text: "Correct query" }));
+    answerArea.appendChild(el("code", { className: "answer-box", text: lastReferenceSql }));
+    showAnswerBtn.style.display = "none";
+  });
 
   runBtn.addEventListener("click", async () => {
     const sql = textarea.value.trim();
@@ -141,6 +154,14 @@ function renderQuestionCard(question) {
       if (!data.correct && data.expected) {
         resultArea.appendChild(el("h4", { text: "Expected result" }));
         resultArea.appendChild(renderDataTable(data.expected.columns, data.expected.rows));
+      }
+
+      if (!data.correct) {
+        incorrectAttempts += 1;
+        lastReferenceSql = data.reference_sql;
+        if (incorrectAttempts >= 2) {
+          showAnswerBtn.style.display = "inline-block";
+        }
       }
 
       refreshStreak();

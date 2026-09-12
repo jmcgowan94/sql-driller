@@ -30,6 +30,7 @@ class SubmitResponse(BaseModel):
     error: str | None = None
     result: QueryResult | None = None
     expected: QueryResult | None = None
+    reference_sql: str | None = None
     topic_level: int
     topic_streak: int
     leveled_up: bool
