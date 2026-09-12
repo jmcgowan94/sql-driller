@@ -79,7 +79,7 @@ def submit_answer(question_id: str, body: SubmitRequest):
             columns=question.expected_columns,
             rows=[list(r) for r in question.expected_rows],
         )
-        reference_sql = question.reference_sql
+        reference_sql = question.reference_sql_display
 
     return SubmitResponse(
         correct=result.correct,

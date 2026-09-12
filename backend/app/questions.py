@@ -3,6 +3,8 @@ import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
 
+import sqlparse
+
 QUESTIONS_DIR = Path(__file__).resolve().parent.parent / "questions"
 
 
@@ -22,6 +24,7 @@ class Question:
     prompt: str
     setup_sql: str
     reference_sql: str
+    reference_sql_display: str
     order_sensitive: bool
     tables: list[TableInfo]
     expected_columns: list[str]
@@ -72,6 +75,9 @@ def _load_question_file(path: Path) -> Question:
         prompt=data["prompt"],
         setup_sql=data["setup_sql"],
         reference_sql=data["reference_sql"],
+        reference_sql_display=sqlparse.format(
+            data["reference_sql"], reindent=True, keyword_case="upper"
+        ),
         order_sensitive=bool(data.get("order_sensitive", False)),
         tables=tables,
         expected_columns=expected_columns,
