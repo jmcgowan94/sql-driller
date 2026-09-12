@@ -24,6 +24,14 @@ app = FastAPI(title="SQL Driller")
 db.init_db()
 
 
+@app.middleware("http")
+async def no_store_for_static(request, call_next):
+    response = await call_next(request)
+    if not request.url.path.startswith("/api"):
+        response.headers["Cache-Control"] = "no-store"
+    return response
+
+
 def _question_to_out(question) -> QuestionOut:
     return QuestionOut(
         id=question.id,
